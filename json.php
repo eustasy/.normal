@@ -6,7 +6,7 @@ function isJson($filename) {
 	return (json_last_error() == JSON_ERROR_NONE);
 }
 
-require_once __DIR__.'/functions.glob_recursive.php';
+require_once __DIR__.'/function.glob_recursive.php';
 $json_files = glob_recursive(__DIR__.'/../*.json');
 $result['invalid_files'] = array();
 $result['valid_files']   = array();
