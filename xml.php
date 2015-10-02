@@ -8,7 +8,7 @@ function isXml($filename) {
 }
 
 require_once __DIR__.'/function.glob_recursive.php';
-$xml_files = glob_recursive(__DIR__.'/*.xml');
+$xml_files = glob_recursive(__DIR__.'/../*.xml');
 $result['invalid_files'] = array();
 $result['valid_files']   = array();
 
