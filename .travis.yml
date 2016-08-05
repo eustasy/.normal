@@ -3,7 +3,6 @@
 language: php
 
 php:
-  - 5.5
   - 5.6
   - 7.0
   - hhvm
@@ -13,10 +12,15 @@ matrix:
     - php: 7.0
     - php: hhvm
 
+before_script:
+  - git clone https://github.com/eustasy/normal-checks.git
+
 script:
-  - ./php.sh
-  - php json.php
-  - php xml.php
+  - ./normal-checks/css.sh
+  - ./normal-checks/javascript.sh
+  - ./normal-checks/php.sh
+  - php normal-checks/json.php
+  - php normal-checks/xml.php
 
 notifications:
   email:
