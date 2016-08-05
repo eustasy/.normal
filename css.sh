@@ -13,7 +13,7 @@ sudo npm install -g csscomb
 csscomb .
 
 if ! git diff --quiet; then
-    git diff
+    git --no-pager diff
 
     echo "##############################################################"
     echo "CSS linting detected an error. Please use csscomb and resubmit"
