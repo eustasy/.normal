@@ -1,4 +1,3 @@
-
 #!/bin/sh
 # Lints all javascript files with standard
 # Requires nvm installed
@@ -9,9 +8,12 @@ echo "###########################"
 echo "Starting Javascript linting"
 echo "###########################"
 
-npm install standard
+npm install eslint-config-standard eslint
 
-./node_modules/.bin/standard *.js
+./node_modules/.bin/eslint \
+    --ignore-pattern "*.min.js" \
+    --ignore-pattern "*.pack.js" \
+    "*.js"
 
 echo "############################"
 echo "Javascript linting complete!"
