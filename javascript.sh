@@ -11,7 +11,7 @@ echo "###########################"
 
 npm install standard
 
-./node_modules/.bin/standard --env *.js
+./node_modules/.bin/standard *.js
 
 echo "############################"
 echo "Javascript linting complete!"
