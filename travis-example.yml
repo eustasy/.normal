@@ -17,6 +17,8 @@ before_script:
   - git clone https://github.com/eustasy/normal-checks.git
 
 script:
+  - ./normal-checks/css.sh
+  - ./normal-checks/javascript.sh
   - ./normal-checks/php.sh
   - php normal-checks/json.php
   - php normal-checks/xml.php
