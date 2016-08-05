@@ -8,12 +8,12 @@ echo "####################"
 echo "Starting CSS linting"
 echo "####################"
 
-npm install csscomb
+sudo npm install -g csscomb
 
-./node_modules/.bin/csscomb *.css
+csscomb .
 
-if ! git diff --quiet styles/; then
-    git diff styles/
+if ! git diff --quiet; then
+    git diff
 
     echo "##############################################################"
     echo "CSS linting detected an error. Please use csscomb and resubmit"
