@@ -1,6 +1,6 @@
 {
     "use": ["stylelint", "autoprefixer", "postcss-reporter"],
-    "input": "styles/*.css",
+    "input": "*.css",
     "replace": true,
     "autoprefixer": {
         "browsers": [
