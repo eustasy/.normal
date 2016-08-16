@@ -8,9 +8,9 @@ echo "####################"
 echo "Starting CSS linting"
 echo "####################"
 
-sudo npm install -g csscomb
+sudo npm install -g postcss postcss-cli postcss-reporter stylelint autoprefixer
 
-csscomb .
+postcss --config .postcss.json
 
 if ! git diff --quiet; then
     git --no-pager diff
