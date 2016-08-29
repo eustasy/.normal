@@ -1,5 +1,5 @@
 #!/bin/sh
-# Runs postcss on all css files
+# Runs stylelint on all css files
 # Requires nvm installed and project as git directory
 
 set -e
@@ -8,9 +8,9 @@ echo "####################"
 echo "Starting CSS linting"
 echo "####################"
 
-sudo npm install -g postcss postcss-cli postcss-reporter stylelint autoprefixer
+sudo npm install -g stylelint
 
-postcss --config .postcss.json
+stylelint --config .stylelintrc.json "*.css"
 
 if ! git diff --no-pager --quiet; then
     git diff --no-pager
