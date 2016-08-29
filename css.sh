@@ -12,8 +12,8 @@ sudo npm install -g postcss postcss-cli postcss-reporter stylelint autoprefixer
 
 postcss --config .postcss.json
 
-if ! git diff --quiet; then
-    git --no-pager diff
+if ! git diff --no-pager --quiet; then
+    git diff --no-pager
 
     echo "##############################################################"
     echo "CSS linting detected an error. Please use csscomb and resubmit"
