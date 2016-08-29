@@ -18,7 +18,6 @@ before_script:
   - sudo apt-get install -y npm
 
 script:
-  - ./normal-checks/css.sh
   - ./normal-checks/javascript.sh
   - ./normal-checks/php.sh
   - php normal-checks/json.php
