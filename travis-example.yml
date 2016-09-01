@@ -18,6 +18,7 @@ before_script:
   - sudo apt-get install -y npm
 
 script:
+  - ./normal-checks/css.sh
   - ./normal-checks/javascript.sh
   - ./normal-checks/php.sh
   - php normal-checks/json.php
@@ -26,6 +27,6 @@ script:
 notifications:
   email:
     recipients:
-      - user@example.com
+      - example@example.com
     on_success: change
     on_failure: always
