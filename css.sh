@@ -10,7 +10,7 @@ echo "####################"
 
 sudo npm install --silent -g stylelint
 
-stylelint --config .stylelintrc.json "*.css"
+stylelint --config .stylelintrc.json "**/*.css"
 
 if ! git diff --no-pager --quiet; then
     git diff --no-pager
