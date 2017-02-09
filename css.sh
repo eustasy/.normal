@@ -9,15 +9,15 @@ echo "Starting CSS linting"
 echo "####################"
 
 sudo npm install --silent -g stylelint stylelint-order
-
 stylelint --config .stylelintrc.json "**/*.css"
 
-if ! git diff --no-pager --quiet; then
-    git diff --no-pager
+git config pager.diff false
+if ! git diff --quiet; then
+    git diff
 
-    echo "##############################################################"
-    echo "CSS linting detected an error. Please use csscomb and resubmit"
-    echo "##############################################################"
+    echo "##############################"
+    echo "CSS linting detected an error."
+    echo "##############################"
 
     exit 1;
 else
