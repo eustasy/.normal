@@ -11,9 +11,8 @@ echo "####################"
 sudo npm install --silent -g stylelint stylelint-order
 stylelint --config .stylelintrc.json "**/*.css"
 
-git config pager.diff false
-if ! git diff --quiet; then
-    git diff
+if ! git --no-pager diff --quiet; then
+    git --no-pager diff
 
     echo "##############################"
     echo "CSS linting detected an error."
