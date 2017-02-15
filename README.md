@@ -5,4 +5,6 @@
 
 ### How to integrate
 
-Copy [`travis-example.yml`](https://github.com/eustasy/normal-checks/blob/master/travis-example.yml) to your repo as `.travis.yml` and edit the email parameter and add any initialisers.
+1. Copy [`travis-example.yml`](https://github.com/eustasy/normal-checks/blob/master/travis-example.yml) to your repo as `.travis.yml` and edit the email parameter and add any initialisers or tests you may have.
+2. Copy [`.stylelintrc.json`](https://github.com/eustasy/normal-checks/blob/master/.stylelintrc.json) as well and use it to configure your CSS settings.
+3. Optionally, copy [`.stylelintignore`](https://github.com/eustasy/normal-checks/blob/master/.stylelintignore) to show which files to ignore. This is usually best done if you have minified CSS in the repository.
