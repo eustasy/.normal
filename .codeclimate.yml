@@ -15,15 +15,23 @@
 engines:
 # to turn on an engine, add it here and set enabled to `true`
 # to turn off an engine, set enabled to `false` or remove it
-  rubocop:
+  csslint:
     enabled: true
-  golint:
+  duplication:
     enabled: true
-  gofmt:
-    enabled: true
+    config:
+      languages:
+      - javascript:
+      - php:
+      - python:
   eslint:
     enabled: true
-  csslint:
+    channel: "eslint-3"
+  fixme:
+    enabled: true
+  phpcodesniffer:
+    enabled: true
+  phpmd:
     enabled: true
 
 # Engines can analyze files and report issues on them, but you can separately
