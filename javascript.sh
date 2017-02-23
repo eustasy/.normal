@@ -8,7 +8,7 @@ echo "###########################"
 echo "Starting Javascript linting"
 echo "###########################"
 
-sudo npm install --silent -g eslint-config-standard eslint-plugin-standard eslint-plugin-promise eslint
+npm install --silent -g eslint-config-standard eslint-plugin-standard eslint-plugin-promise eslint
 
 eslint \
     --ignore-pattern "*.min.js" \
