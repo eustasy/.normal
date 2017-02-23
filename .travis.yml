@@ -17,6 +17,8 @@ matrix:
 
 before_script:
   - git clone https://github.com/eustasy/normal-checks.git
+  - sudo apt-get update
+  - sudo apt-get dist-upgrade -y
   - sudo apt-get purge -y nodejs-legacy nodejs
   - sudo apt-get install -y npm
 
