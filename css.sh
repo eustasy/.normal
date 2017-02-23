@@ -8,7 +8,7 @@ echo "####################"
 echo "Starting CSS linting"
 echo "####################"
 
-sudo npm install --silent -g stylelint stylelint-order
+npm install --silent -g stylelint stylelint-order
 stylelint --config .stylelintrc.json "**/*.css"
 
 if ! git --no-pager diff --quiet; then
