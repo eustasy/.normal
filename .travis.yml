@@ -17,8 +17,7 @@ matrix:
 
 before_script:
   - git clone https://github.com/eustasy/normal-checks.git
-  - mv normal-checks/.stylelintrc.json .stylelintrc.json
-  - mv normal-checks/.stylelintignore .stylelintignore
+  - ./normal-checks/setup-config.sh
 
 script:
   - ./normal-checks/css.sh
