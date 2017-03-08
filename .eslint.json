@@ -1,0 +1,12 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+        "semi": ["error", "never"],
+        "comma-dangle": ["error", "always-multiline"],
+        "no-cond-assign": ["error", "always"],
+        "no-console": "off"
+    }
+}
