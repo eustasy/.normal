@@ -4,9 +4,10 @@
   },
   "extends": "eslint:recommended",
   "rules": {
-        "semi": ["error", "never"],
-        "comma-dangle": ["error", "always-multiline"],
-        "no-cond-assign": ["error", "always"],
-        "no-console": "off"
+      "semi": ["error", "never"],
+      "indent": ["error", "tab"],
+      "comma-dangle": ["error", "always-multiline"],
+      "no-cond-assign": ["error", "always"],
+      "no-console": "off"
     }
 }
