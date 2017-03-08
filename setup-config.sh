@@ -9,7 +9,7 @@ echo "####################"
 
 cp normal-checks/.stylelintrc.json .stylelintrc.json
 cp normal-checks/.stylelintignore  .stylelintignore
-cp normal-checks/.eslint.json      .eslint.json
+cp normal-checks/.eslintrc.json      .eslintrc.json
 
 if ! git --no-pager diff --quiet; then
     git --no-pager diff
