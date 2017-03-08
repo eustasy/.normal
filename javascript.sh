@@ -8,12 +8,9 @@ echo "###########################"
 echo "Starting Javascript linting"
 echo "###########################"
 
-npm install --silent -g eslint-config-standard eslint-plugin-standard eslint-plugin-promise eslint
+npm install --silent -g eslint-config-standard eslint-plugin-standard eslint
 
-eslint \
-    --ignore-pattern "*.min.js" \
-    --ignore-pattern "*.pack.js" \
-    "*.js"
+eslint "*.js"
 
 echo "############################"
 echo "Javascript linting complete!"
