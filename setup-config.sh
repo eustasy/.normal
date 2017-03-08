@@ -14,11 +14,11 @@ cp normal-checks/.eslint.json      .eslint.json
 if ! git --no-pager diff --quiet; then
     git --no-pager diff
 
-    echo "########################"
-    echo "Config changes detected."
-    echo "########################"
+    echo "#################################"
+    echo "WARNING! Config changes detected."
+    echo "#################################"
 
-    exit 1;
+    exit 0;
 else
     echo "#####################"
     echo "Config copy complete!"
