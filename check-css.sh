@@ -13,16 +13,14 @@ stylelint --config .stylelintrc.json "**/*.css"
 
 if ! git --no-pager diff --quiet; then
     git --no-pager diff
-
     echo "##############################"
     echo "CSS linting detected an error."
     echo "##############################"
-
     exit 1;
+
 else
     echo "#####################"
     echo "CSS linting complete!"
     echo "#####################"
-
     exit 0;
 fi
