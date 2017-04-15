@@ -36,6 +36,8 @@ engines:
         enabled: false
       Squiz ControlStructures ForEachLoopDeclaration SpaceAfterOpen:
         enabled: false
+      Squiz ControlStructures ForEachLoopDeclaration SpaceBeforeClose:
+        enabled: false
   phpmd:
     enabled: true
     checks:
