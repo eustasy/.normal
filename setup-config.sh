@@ -7,10 +7,11 @@ echo "####################"
 echo "Starting Config Copy"
 echo "####################"
 
-cp normal-checks/.stylelintrc.json .stylelintrc.json
-cp normal-checks/.stylelintignore  .stylelintignore
+cp normal-checks/.codeclimate.yml  .codeclimate.yml
 cp normal-checks/.eslintrc.json    .eslintrc.json
 cp normal-checks/.eslintignore     .eslintignore
+cp normal-checks/.stylelintrc.json .stylelintrc.json
+cp normal-checks/.stylelintignore  .stylelintignore
 
 if ! git --no-pager diff --quiet; then
     git --no-pager diff
