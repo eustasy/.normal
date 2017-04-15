@@ -34,7 +34,8 @@ engines:
     enabled: true
   markdownlint:
     enabled: true
-    # config: .mdlrc
+    # initial: .mdlrc
+    # config: .mdlrc.style.rb
   phpcodesniffer:
     enabled: true
     checks:
