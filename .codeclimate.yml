@@ -34,16 +34,22 @@ engines:
     checks:
       Generic WhiteSpace DisallowTabIndent TabsUsed:
         enabled: false
+      PSR2 ControlStructures ControlStructureSpacing SpacingAfterOpenBrace:
+        enabled: false
       PSR2 ControlStructures ControlStructureSpacing SpaceBeforeCloseBrace:
         enabled: false
       Squiz ControlStructures ForEachLoopDeclaration SpaceAfterOpen:
         enabled: false
       Squiz ControlStructures ForEachLoopDeclaration SpaceBeforeClose:
         enabled: false
+      Squiz Functions MultiLineFunctionDeclaration BraceOnSameLine:
+        enabled: false
   phpmd:
     enabled: true
     checks:
       Controversial/CamelCaseParameterName:
+        enabled: false
+      Controversial/CamelCaseVariableName:
         enabled: false
 
 # Engines can analyze files and report issues on them, but you can separately
