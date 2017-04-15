@@ -31,14 +31,15 @@ engines:
     enabled: true
   phpcodesniffer:
     enabled: true
+    checks:
+      PSR2 ControlStructures ControlStructureSpacing SpaceBeforeCloseBrace:
+        enabled: false
+      Squiz ControlStructures ForEachLoopDeclaration SpaceAfterOpen:
+        enabled: false
   phpmd:
     enabled: true
     checks:
       Controversial/CamelCaseParameterName:
-        enabled: false
-      PSR2 ControlStructures ControlStructureSpacing SpaceBeforeCloseBrace:
-        enabled: false
-      Squiz ControlStructures ForEachLoopDeclaration SpaceAfterOpen:
         enabled: false
 
 # Engines can analyze files and report issues on them, but you can separately
