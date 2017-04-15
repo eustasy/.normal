@@ -17,6 +17,7 @@ engines:
 # to turn off an engine, set enabled to `false` or remove it
   csslint:
     enabled: true
+    # TODO
   duplication:
     enabled: true
     config:
@@ -27,8 +28,13 @@ engines:
   eslint:
     enabled: true
     channel: "eslint-3"
+    # config: .eslintrc.json
+    # ignore: .eslintignore
   fixme:
     enabled: true
+  markdownlint:
+    enabled: true
+    # config: .mdlrc
   phpcodesniffer:
     enabled: true
     checks:
@@ -51,6 +57,8 @@ engines:
         enabled: false
       Controversial/CamelCaseVariableName:
         enabled: false
+  shellcheck:
+    enabled: true
 
 # Engines can analyze files and report issues on them, but you can separately
 # decide which files will receive ratings based on those issues. This is
