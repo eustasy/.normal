@@ -3,9 +3,9 @@
 
 set -e
 
-echo "####################"
-echo "Starting Config Copy"
-echo "####################"
+echo "#####################"
+echo "Starting Config Check"
+echo "#####################"
 
 cp normal-checks/.codeclimate.yml  .codeclimate.yml
 cp normal-checks/.eslintrc.json    .eslintrc.json
@@ -17,17 +17,15 @@ cp normal-checks/.stylelintignore  .stylelintignore
 
 if ! git --no-pager diff --quiet; then
     git --no-pager diff
-
     echo "#################################"
     echo "WARNING! Config changes detected."
     echo "#################################"
+    exit 1;
 
-    exit 0;
 else
     echo "#####################"
     echo "Config copy complete!"
     echo "#####################"
-
     exit 0;
 fi
 
