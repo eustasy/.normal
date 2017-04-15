@@ -32,6 +32,8 @@ engines:
   phpcodesniffer:
     enabled: true
     checks:
+      Generic WhiteSpace DisallowTabIndent TabsUsed:
+        enabled: false
       PSR2 ControlStructures ControlStructureSpacing SpaceBeforeCloseBrace:
         enabled: false
       Squiz ControlStructures ForEachLoopDeclaration SpaceAfterOpen:
