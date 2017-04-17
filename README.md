@@ -6,5 +6,57 @@
 ### How to integrate
 
 1. Copy [`.travis.yml`](https://github.com/eustasy/normal-checks/blob/master/.travis.yml) to your repo as `.travis.yml` and edit the email parameter and add any initialisers or tests you may have.
-2. Decide on whether [`.stylelintrc.json`](https://github.com/eustasy/normal-checks/blob/master/.stylelintrc.json) should be copied as well and use it to configure your CSS settings. This file should be valid JSON, and is based on the rules presented at [stylelint.io/user-guide/rules](https://stylelint.io/user-guide/rules/)
-3. Decide on whether [`.stylelintignore`](https://github.com/eustasy/normal-checks/blob/master/.stylelintignore) should be copied to choose which files to ignore. This is usually best done if you have minified CSS in the repository. This file uses the same syntax as `.gitignore`
+2. 
+```
+git clone https://github.com/eustasy/normal-checks.git
+./normal-checks/check-config.sh
+rm -R normal-checks
+```
+
+### What it checks
+
+| Test | Language | Travic CI | Codacy | Code Climate |
+|------|----------|-----------|--------|--------------|
+| Config | Conf           | Yes | N/a | N/a |
+| Coverage | PHP          | No  | Yes | Yes |
+| CSSLint | CSS           | No  | No  | No  |
+| Duplication | All       | No  | Yes | Yes |
+| ESLint | JavaScript     | Yes | No  | Yes |
+| FixMe | All             | No  | No  | Yes |
+| JacksonLinter | JSON    | No  | Yes | N/a |
+| JSON Validator* | JSON  | Yes | N/a | N/a |
+| MarkdownLint | Markdown | No  | No  | Yes |
+| Metrics | All           | No  | Yes | No  |
+| Permissions | All       | Yes | N/a | N/a |
+| PHPCodeSniffer | PHP    | No  | N/a | Yes |
+| PHPMD | PHP             | No  | No  | Yes |
+| PHP Validator* | PHP    | Yes | N/a | N/a |
+| Rubocop | Ruby          | No  | No  | No  |
+| Shellcheck | Bash       | No  | No  | Yes |
+| Stylelint | CSS         | Yes | Yes | N/a |
+| XML Validator* | XML    | Yes | N/a | N/a |
+
+*Not true checkers, just syntax.
+
+### Checked Files
+
+Tests cover the following extensions:
+
+- *.conf
+- *.css
+- *.js
+- *.json
+- *.md
+- *.phar
+- *.php
+- *.sh
+- *.xml
+
+### Excluded Paths
+
+Most test exclude the following paths:
+
+- _libs/*
+- *.min.css
+- *.min.js
+
