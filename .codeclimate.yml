@@ -1,30 +1,26 @@
-# This is a sample .codeclimate.yml configured for Engine analysis on Code
-# Climate Platform. For an overview of the Code Climate Platform, see here:
-# http://docs.codeclimate.com/article/300-the-codeclimate-platform
-
 # Under the engines key, you can configure which engines will analyze your repo.
 # Each key is an engine name. For each value, you need to specify enabled: true
 # to enable the engine as well as any other engines-specific configuration.
 
 # For more details, see here:
-# http://docs.codeclimate.com/article/289-configuring-your-repository-via-codeclimate-yml#platform
+# https://docs.codeclimate.com/docs/example-codeclimateyml#platform
 
 # For a list of all available engines, see here:
-# http://docs.codeclimate.com/article/296-engines-available-engines
+# https://docs.codeclimate.com/docs/list-of-engines
 
 engines:
 # to turn on an engine, add it here and set enabled to `true`
 # to turn off an engine, set enabled to `false` or remove it
   csslint:
-    enabled: true
-    # TODO
+    enabled: false
+    # Stylelint at Codacy used isnstead.
   duplication:
     enabled: true
     config:
       languages:
-      - javascript:
-      - php:
-      - python:
+      - javascript
+      - php
+      - python
   eslint:
     enabled: true
     channel: "eslint-3"
