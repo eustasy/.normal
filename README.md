@@ -10,7 +10,7 @@
 ```
 git clone https://github.com/eustasy/normal-checks.git
 ./normal-checks/check-config.sh
-rm -R normal-checks
+rm -Rf normal-checks
 ```
 
 ### What it checks
