@@ -9,6 +9,9 @@
 2. 
 ```
 git clone https://github.com/eustasy/normal-checks.git
+cd normal-checks
+git checkout d5f1a5d9e3fbac391b905f2bdfcdcdbfe465eabf
+cd ../
 ./normal-checks/check-config.sh
 rm -Rf normal-checks
 ```
