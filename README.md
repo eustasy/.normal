@@ -58,5 +58,8 @@ Most test exclude the following paths:
 
 - _libs/*
 - *.min.css
+- *.custom.css
 - *.min.js
+- *.pack.js
+- *.custom.js
 
