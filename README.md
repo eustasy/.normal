@@ -12,6 +12,7 @@ git clone https://github.com/eustasy/normal-checks.git
 ./normal-checks/check-config.sh
 rm -Rf normal-checks
 ```
+3. Disable evrything but JacksonLinter and Stylelint on Codacy. JacksonLinter will need it's two options enabling manually. Code Climate is configured entirely automatically.
 
 ### What it checks
 
