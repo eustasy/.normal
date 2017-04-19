@@ -5,16 +5,18 @@
 
 ### How to integrate
 
-1. Copy [`.travis.yml`](https://github.com/eustasy/normal-checks/blob/master/.travis.yml) to your repo as `.travis.yml` and edit the email parameter and add any initialisers or tests you may have.
-2. 
+1. 
 ```
 git clone https://github.com/eustasy/normal-checks.git
+cp normal-checks/.travis.yml .travis.yml
 cd normal-checks
 git checkout d5f1a5d9e3fbac391b905f2bdfcdcdbfe465eabf
 cd ../
 ./normal-checks/check-config.sh
+./normal-checks/check-permissions.sh
 rm -Rf normal-checks
 ```
+2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
 3. Disable evrything but JacksonLinter and Stylelint on Codacy. JacksonLinter will need it's two options enabling manually. Code Climate is configured entirely automatically.
 
 ### What it checks
