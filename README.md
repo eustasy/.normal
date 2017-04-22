@@ -12,8 +12,8 @@ cp normal-checks/.travis.yml .travis.yml &&
 cd normal-checks &&
 git checkout d5f1a5d9e3fbac391b905f2bdfcdcdbfe465eabf &&
 cd ../ &&
-./normal-checks/check-config.sh &&
-./normal-checks/check-permissions.sh &&
+./normal-checks/check-config.sh;
+./normal-checks/check-permissions.sh;
 rm -Rf normal-checks
 ```
 2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
