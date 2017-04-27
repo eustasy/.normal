@@ -17,7 +17,23 @@ cd ../ &&
 rm -Rf normal-checks
 ```
 2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
-3. Disable evrything but JacksonLinter and Stylelint on Codacy. JacksonLinter will need it's two options enabling manually. Code Climate is configured entirely automatically.
+3. Travis CI Settings:
+  - ON: Build only if .travis.yml is present
+  - ON: Build branch updates
+  - OFF: Limit concurrent jobs 
+  - ON: Build pull request updates
+  - ON: Auto cancel branch builds
+  - ON: Auto cancel pull request builds
+  - CRON: Daily on master regardless.
+4. Codacy Settings:
+  - ON: Settings > Integrations > Github Pull Requests > All options
+  - ON: Settings > Integrations > GitHub Post Commit Hook
+  - ON: Code Patterns > JacksonLinter (both settings)
+  - ON: Code Patterns > Stylelint
+  - OFF: Code Patterns > All others.
+5. Code Climate Settings
+  - ON: Settings > Git Repository > Webhook on GitHub
+  - ON: Settings > Git Repository > Integration with pull request status updates
 
 ### What it checks
 
