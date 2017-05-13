@@ -1,9 +1,9 @@
 # see http://about.travis-ci.org/docs/user/languages/php/ for more hints
 
-language: php
 dist: trusty
 sudo: required
 
+language: php
 php:
   - 7.1
 
