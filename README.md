@@ -45,7 +45,7 @@ rm -Rf normal-checks
 | Duplication | All       | No  | Yes | Yes |
 | ESLint | JavaScript     | Yes | No  | Yes |
 | FixMe | All             | No  | **N/a** | Yes |
-| JacksonLinter | JSON    | No  | Yes | N/a |
+| JacksonLinter | JSON    | No  | Yes | **N/a** |
 | JSON Validator* | JSON  | Yes | N/a | N/a |
 | MarkdownLint | Markdown | No  | **N/a** | Yes |
 | Metrics | All           | No  | Yes | No  |
