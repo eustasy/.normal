@@ -44,21 +44,23 @@ rm -Rf normal-checks
 | CSSLint | CSS           | No  | No  | No  |
 | Duplication | All       | No  | Yes | Yes |
 | ESLint | JavaScript     | Yes | No  | Yes |
-| FixMe | All             | No  | No  | Yes |
+| FixMe | All             | No  | **N/a** | Yes |
 | JacksonLinter | JSON    | No  | Yes | N/a |
 | JSON Validator* | JSON  | Yes | N/a | N/a |
-| MarkdownLint | Markdown | No  | No  | Yes |
+| MarkdownLint | Markdown | No  | **N/a** | Yes |
 | Metrics | All           | No  | Yes | No  |
 | Permissions | All       | Yes | N/a | N/a |
-| PHPCodeSniffer | PHP    | No  | N/a | Yes |
-| PHPMD | PHP             | No  | No  | Yes |
+| PHPCodeSniffer | PHP    | No  | **N/a** | Yes |
+| PHPMD | PHP             | No  | No^ | Yes |
 | PHP Validator* | PHP    | Yes | N/a | N/a |
 | Rubocop | Ruby          | No  | No  | No  |
 | Shellcheck | Bash       | No  | No  | Yes |
-| Stylelint | CSS         | Yes | Yes | N/a |
+| Stylelint | CSS         | Yes | Yes | **N/a** |
 | XML Validator* | XML    | Yes | N/a | N/a |
 
-*Not true checkers, just syntax.
+*Not true checkers, just syntax.  
+^Not configured for this runtime.  
+**Bold** indicates something required for Codacy or Code Climate to totally replace the other. Codacy have issue navigation down much better, Code Climate won't let you filter down to a generator/rule level.
 
 ### Checked Files
 
