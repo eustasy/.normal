@@ -29,6 +29,7 @@ rm -Rf normal-checks
   - ON: Settings > Integrations > Github Pull Requests > All options
   - ON: Settings > Integrations > GitHub Post Commit Hook
   - ON: Code Patterns > JacksonLinter (both settings)
+  - ON: Code Patterns > SQLint (only setting)
   - ON: Code Patterns > Stylelint
   - OFF: Code Patterns > All others.
 5. Code Climate Settings
@@ -56,6 +57,7 @@ rm -Rf normal-checks
 | PHP Validator* | PHP    | Yes | N/a | N/a |
 | Rubocop | Ruby          | No  | No  | No  |
 | Shellcheck | Bash       | No  | No  | Yes |
+| SQLint | SQL            | No  | Yes | **N/a** |
 | Stylelint | CSS         | Yes | Yes | **N/a** |
 | XML Validator* | XML    | Yes | N/a | N/a |
 
@@ -75,6 +77,7 @@ Tests cover the following extensions:
 - *.phar
 - *.php
 - *.sh
+- *.sql
 - *.xml
 
 ### Excluded Paths
