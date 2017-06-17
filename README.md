@@ -39,11 +39,12 @@ rm -Rf normal-checks
 
 | Test | Language | Travic CI | Codacy | Code Climate |
 |------|----------|-----------|--------|--------------|
+| Acorn | JavaScript      | Yes | N/a | N/a |
 | Config | Conf           | Yes | N/a | N/a |
 | Coverage | PHP          | No  | Yes | Yes |
 | CSSLint | CSS           | No  | No  | No  |
 | Duplication | All       | No  | Yes | Yes |
-| ESLint | JavaScript     | Yes | No  | Yes |
+| ESLint | JavaScript     | No  | No  | Yes |
 | FixMe | All             | No  | **N/a** | Yes |
 | JacksonLinter | JSON    | No  | Yes | **N/a** |
 | JSON Validator* | JSON  | Yes | N/a | N/a |
