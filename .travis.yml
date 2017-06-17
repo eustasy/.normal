@@ -19,9 +19,9 @@ before_script:
   - cd normal-checks
   - git checkout d5f1a5d9e3fbac391b905f2bdfcdcdbfe465eabf
   - cd ../
-  - ./normal-checks/check-config.sh
 
 script:
+  - ./normal-checks/check-config.sh
   - ./normal-checks/check-permissions.sh
   - ./normal-checks/check-css.sh
   - ./normal-checks/check-javascript.sh
