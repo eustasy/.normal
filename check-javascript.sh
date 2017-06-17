@@ -11,7 +11,7 @@ echo "################################"
 
 npm install --silent -g acorn
 
-find `pwd` -name '*.js' | xargs -0 acorn --silent; echo $? 
+find `pwd` -name '*.js' | xargs acorn --silent {}; echo $? 
 
 echo "#################################"
 echo "Javascript syntax check complete!"
