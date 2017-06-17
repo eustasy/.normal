@@ -10,7 +10,7 @@
 git clone https://github.com/eustasy/normal-checks.git &&
 cp normal-checks/.travis.yml .travis.yml &&
 cd normal-checks &&
-git checkout d5f1a5d9e3fbac391b905f2bdfcdcdbfe465eabf &&
+git checkout fe314613d77d06016812f9377a0957cd27c97da5 &&
 cd ../ &&
 ./normal-checks/check-config.sh;
 ./normal-checks/check-permissions.sh;
