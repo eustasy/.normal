@@ -21,12 +21,9 @@ if ! git --no-pager diff --quiet; then
     echo "#################################"
     echo "WARNING! Config changes detected."
     echo "#################################"
-    exit 1;
-
-else
-    echo "#####################"
-    echo "Config copy complete!"
-    echo "#####################"
-    exit 0;
+    git reset --hard HEAD
 fi
 
+echo "#####################"
+echo "Config copy complete!"
+echo "#####################"

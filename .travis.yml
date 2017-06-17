@@ -6,12 +6,20 @@ sudo: required
 language: php
 php:
   - 5.6
+  - 7.0
   - 7.1
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: 5.6
+    - php: 7.0
+    - php: hhvm
 
 before_script:
   - git clone https://github.com/eustasy/normal-checks.git
   - cd normal-checks
-  - git checkout d5f1a5d9e3fbac391b905f2bdfcdcdbfe465eabf
+  - git checkout 768000d77c2818c49d8a38e66725c30aee2f281f
   - cd ../
 
 jobs:

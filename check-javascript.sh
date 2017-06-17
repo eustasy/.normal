@@ -1,17 +1,16 @@
 #!/bin/sh
-# Lints all javascript files with standard
-# Requires nvm installed
+# Syntax check JavaScript with Acorn
+# https://github.com/ternjs/acorn
+# inspired by https://stackoverflow.com/a/24385950/1239965
 
-set -e
+echo "################################"
+echo "Starting Javascript syntax check"
+echo "################################"
 
-echo "###########################"
-echo "Starting Javascript linting"
-echo "###########################"
+npm install --silent -g acorn
 
-npm install --silent -g eslint-config-standard eslint-plugin-standard eslint
+find . -name '*.js' | xargs -0 acorn --silent; echo $? 
 
-eslint "*.js"
-
-echo "############################"
-echo "Javascript linting complete!"
-echo "############################"
+echo "#################################"
+echo "Javascript syntax check complete!"
+echo "#################################"
