@@ -9,7 +9,7 @@ echo "################################"
 
 npm install --silent -g acorn
 
-find . -name '*.js' | xargs acorn --silent; echo $? 
+find . -name '*.js' | xargs -0 acorn --silent; echo $? 
 
 echo "#################################"
 echo "Javascript syntax check complete!"
