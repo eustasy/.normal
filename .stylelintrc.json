@@ -109,7 +109,6 @@
         "selector-max-id": 0,
         "selector-max-universal": 0,
 
-        
         "selector-list-comma-newline-after": "always",
         "selector-list-comma-newline-before": "never-multi-line",
         "selector-list-comma-space-after": "always-single-line",
