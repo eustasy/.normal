@@ -8,12 +8,11 @@
 1. 
 ```
 git clone https://github.com/eustasy/normal-checks.git &&
-cp normal-checks/.travis.yml .travis.yml &&
+cp normal-checks/install.sh install.sh &&
 cd normal-checks &&
 git checkout fe314613d77d06016812f9377a0957cd27c97da5 &&
 cd ../ &&
-./normal-checks/check-config.sh;
-./normal-checks/check-permissions.sh;
+./normal-checks/install.sh;
 rm -Rf normal-checks
 ```
 2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
