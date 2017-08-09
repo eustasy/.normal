@@ -8,6 +8,7 @@
 1. 
 ```
 git clone https://github.com/eustasy/normal-checks.git &&
+cp normal-checks/.travis.yml .travis.yml &&
 cp normal-checks/install.sh install.sh &&
 chmod 755 install.sh &&
 cd normal-checks &&
