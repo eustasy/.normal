@@ -9,6 +9,7 @@
 ```
 git clone https://github.com/eustasy/normal-checks.git &&
 cp normal-checks/install.sh install.sh &&
+chmod 755 install.sh &&
 cd normal-checks &&
 git checkout fe314613d77d06016812f9377a0957cd27c97da5 &&
 cd ../ &&
