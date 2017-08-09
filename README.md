@@ -12,11 +12,13 @@ cp normal-checks/.travis.yml .travis.yml &&
 cp normal-checks/install.sh install.sh &&
 chmod 755 install.sh &&
 cd normal-checks &&
-git checkout b824f5247e2ad420f7fe0dbfa88b51f82b0e591d &&
+git checkout 4256f55ef631900df06ca5c6167e21e6ed4cf55b &&
 cd ../ &&
 ./install.sh;
 rm -Rf install.sh;
-rm -Rf normal-checks
+rm -Rf normal-checks;
+git commit -am "Update to NC 1.7";
+git push
 ```
 2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
 3. Travis CI Settings:
