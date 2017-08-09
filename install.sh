@@ -15,4 +15,3 @@ cp normal-checks/.mdlrc            .mdlrc
 cp normal-checks/.mdlrc.style.rb   .mdlrc.style.rb
 cp normal-checks/.stylelintrc.json .stylelintrc.json
 cp normal-checks/.stylelintignore  .stylelintignore
-cp normal-checks/.travis.yml       .travis.yml
