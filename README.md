@@ -12,7 +12,7 @@ cp normal-checks/install.sh install.sh &&
 cd normal-checks &&
 git checkout fe314613d77d06016812f9377a0957cd27c97da5 &&
 cd ../ &&
-./normal-checks/install.sh;
+./install.sh;
 rm -Rf normal-checks
 ```
 2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
