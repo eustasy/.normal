@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copy config files
+# Set persmissions
 
 set -e
 
