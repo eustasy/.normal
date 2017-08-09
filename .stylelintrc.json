@@ -106,6 +106,9 @@
         "selector-type-case": "lower",
         "selector-type-no-unknown": true,
         "selector-max-empty-lines": 0,
+        "selector-max-id": 0,
+        "selector-max-universal": 0,
+
         
         "selector-list-comma-newline-after": "always",
         "selector-list-comma-newline-before": "never-multi-line",
