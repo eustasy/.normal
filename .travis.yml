@@ -22,14 +22,22 @@ before_script:
   - git checkout 4256f55ef631900df06ca5c6167e21e6ed4cf55b
   - cd ../
 
-script:
-  - ./normal-checks/check-config.sh
-  - ./normal-checks/check-permissions.sh
-  - ./normal-checks/check-javascript.sh
-  - ./normal-checks/check-css.sh
-  - ./normal-checks/check-php.sh
-  - php normal-checks/check-json.php
-  - php normal-checks/check-xml.php
+jobs:
+  include:
+    - stage: Configuration
+      script: ./normal-checks/check-config.sh
+    - stage: Permissions
+      script: ./normal-checks/check-permissions.sh
+    - stage: CSS Code Style
+      script: ./normal-checks/check-css.sh
+    - stage: JavaScript Code Style
+      script: ./normal-checks/check-javascript.sh
+    - stage: PHP Syntax
+      script: ./normal-checks/check-php.sh
+    - stage: JSON Syntax
+      script: php normal-checks/check-json.php
+    - stage: XML Syntax
+      script: php normal-checks/check-xml.php
 
 notifications:
   email:
