@@ -1,4 +1,4 @@
-# eustasy Normalized Checks 1.8a
+# eustasy Normalized Checks 1.8b
 
 dist: trusty
 sudo: required
@@ -16,8 +16,8 @@ matrix:
   allow_failures:
     - php: hhvm
 
-# addons:
-#   mariadb: '10.1'
+addons:
+  mariadb: '10.1'
 
 before_script:
   - git clone https://github.com/eustasy/normal-checks.git
@@ -33,8 +33,9 @@ script:
   - ./normal-checks/check-php.sh
   - php normal-checks/check-json.php
   - php normal-checks/check-xml.php
-#  - sudo mysql -u root -e 'CREATE DATABASE IF NOT EXISTS tests_db;'
-#  - sudo mysql -u root tests_db < _sql/Tests.sql
+  # Comment out following two lines if you don't wish to test any SQL files.
+  - sudo mysql -u root -e 'CREATE DATABASE IF NOT EXISTS tests_db;'
+  - sudo mysql -u root tests_db < empty/test.sql
 
 notifications:
   email:
