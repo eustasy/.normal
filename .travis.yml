@@ -1,3 +1,5 @@
+# eustasy Normalized Checks 1.8a
+
 dist: trusty
 sudo: required
 
@@ -31,8 +33,8 @@ script:
   - ./normal-checks/check-php.sh
   - php normal-checks/check-json.php
   - php normal-checks/check-xml.php
-#   - mysql -u root -p="" -e 'CREATE DATABASE IF NOT EXISTS tests_db;'  
-#   - mysql -u root -p="" tests_db < scripts/bd.sql
+#  - sudo mysql -u root -e 'CREATE DATABASE IF NOT EXISTS tests_db;'
+#  - sudo mysql -u root tests_db < _sql/Tests.sql
 
 notifications:
   email:
