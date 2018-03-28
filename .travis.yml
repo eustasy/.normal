@@ -22,7 +22,7 @@ addons:
 before_script:
   - git clone https://github.com/eustasy/normal-checks.git
   - cd normal-checks
-  - git checkout 649a7e0907c0ab4b342688e7d068b574a0945b3e
+  - git checkout 1808bae8c89fcfdb954289df209a0ce8dcfe8c61
   - cd ../
 
 script:
