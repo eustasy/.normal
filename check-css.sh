@@ -8,7 +8,9 @@ echo "###################"
 echo "Starting CSS checks"
 echo "###################"
 
-npm install --silent -g stylelint stylelint-order stylelint-csstree-validator
+npm install --silent -g stylelint
+npm install --silent -g stylelint-order
+npm install --silent -g stylelint-csstree-validator
 stylelint --config .stylelintrc.syntax.json "**/*.css"
 
 if ! git --no-pager diff --quiet; then
