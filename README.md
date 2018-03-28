@@ -48,6 +48,7 @@ git push
 | Config | Conf           | Yes | N/a | N/a |
 | Coverage | PHP          | No  | Yes | Yes |
 | CSSLint | CSS           | No  | No  | No  |
+| CSS Syntax | CSS        | Yes | N/a | N/a |
 | Duplication | All       | No  | Yes | Yes |
 | ESLint | JavaScript     | No  | No  | Yes |
 | FixMe | All             | No  | **N/a** | Yes |
@@ -62,7 +63,7 @@ git push
 | Rubocop | Ruby          | No  | No  | No  |
 | Shellcheck | Bash       | No  | No  | Yes |
 | SQLint | SQL            | No  | Yes | **N/a** |
-| Stylelint | CSS         | Yes | Yes | **N/a** |
+| Stylelint | CSS         | No  | Yes | **N/a** |
 | XML Validator* | XML    | Yes | N/a | N/a |
 
 *Not true checkers, just syntax.  
