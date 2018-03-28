@@ -12,7 +12,7 @@ cp normal-checks/.travis.yml .travis.yml &&
 cp normal-checks/install.sh install.sh &&
 chmod 755 install.sh &&
 cd normal-checks &&
-git checkout 1808bae8c89fcfdb954289df209a0ce8dcfe8c61 &&
+git checkout edab73df5c24b6daeae26bfd743e0fcd07f180d2 &&
 cd ../ &&
 ./install.sh;
 rm -Rf install.sh;
