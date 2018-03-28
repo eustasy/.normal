@@ -24,6 +24,11 @@ before_script:
   - cd normal-checks
   - git checkout 771ba58260c48b465c232666bc1ec66bf63c764a
   - cd ../
+  - npm install --silent -g npm
+  - npm install --silent -g acorn
+  - npm install --silent -g stylelint
+  - npm install --silent -g stylelint-order
+  - npm install --silent -g stylelint-csstree-validator
 
 script:
   - ./normal-checks/check-config.sh
