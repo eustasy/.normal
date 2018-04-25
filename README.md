@@ -5,26 +5,26 @@
 
 ### How to integrate
 
-1. 
+1.
 ```
 git clone https://github.com/eustasy/normal-checks.git &&
 cp normal-checks/.travis.yml .travis.yml &&
 cp normal-checks/install.sh install.sh &&
 chmod 755 install.sh &&
 cd normal-checks &&
-git checkout 61cd60694f4be20a6adeebf0b9b81d597bfe6bd7 &&
+git checkout 6ef47d5504d44973d8c2cfc5f6a5f68d28bb06e3 &&
 cd ../ &&
 ./install.sh;
 rm -Rf install.sh;
 rm -Rf normal-checks;
-git commit -am "Install eustasy Normalized Checks 1.9.0";
+git commit -am "Install eustasy Normalized Checks 1.10.0";
 git push
 ```
 2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
 3. Travis CI Settings:
   - ON: Build only if .travis.yml is present
   - ON: Build branch updates
-  - OFF: Limit concurrent jobs 
+  - OFF: Limit concurrent jobs
   - ON: Build pull request updates
   - ON: Auto cancel branch builds
   - ON: Auto cancel pull request builds
@@ -44,7 +44,7 @@ git push
 
 | Test | Language | Travic CI | Codacy | Code Climate |
 |------|----------|-----------|--------|--------------|
-| Acorn* | JavaScript      | Yes | N/a | N/a |
+| Acorn* | JavaScript     | Yes | N/a | N/a |
 | Config | Conf           | Yes | N/a | N/a |
 | Coverage | PHP          | No  | Yes | Yes |
 | CSSLint | CSS           | No  | No  | No  |
@@ -62,7 +62,7 @@ git push
 | Rubocop | Ruby          | No  | No  | No  |
 | Shellcheck | Bash       | No  | No  | Yes |
 | SQLint | SQL            | No  | Yes | **N/a** |
-| Stylelint | CSS         | Yes* | Yes | **N/a** |
+| Stylelint | CSS         | No  | Yes | **N/a** |
 | XML Validator* | XML    | Yes | N/a | N/a |
 
 *Not true checkers, just syntax.  
@@ -94,4 +94,3 @@ Most test exclude the following paths:
 - *.min.js
 - *.pack.js
 - *.custom.js
-

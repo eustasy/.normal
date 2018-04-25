@@ -1,4 +1,4 @@
-# eustasy Normalized Checks 1.9.0
+# eustasy Normalized Checks 1.10.0
 
 dist: trusty
 sudo: required
@@ -22,7 +22,7 @@ addons:
 before_script:
   - git clone https://github.com/eustasy/normal-checks.git
   - cd normal-checks
-  - git checkout 611660d0bb7e2557bc57806e696dd7b00f488d72
+  - git checkout 6ef47d5504d44973d8c2cfc5f6a5f68d28bb06e3
   - cd ../
   - npm install --silent -g npm
   - npm install --silent -g acorn
