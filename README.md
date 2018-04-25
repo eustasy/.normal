@@ -15,12 +15,17 @@ cd normal-checks &&
 git checkout 2b23ee3dbb274409ae51a620ae9d6fef6516781a &&
 cd ../ &&
 ./install.sh;
+```
+Enter password if required.
+```
 rm -Rf install.sh;
 rm -Rf normal-checks;
+```
+2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
+```
 git commit -am "Install eustasy Normalized Checks 1.10.0";
 git push
 ```
-2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
 3. Travis CI Settings:
   - ON: Build only if .travis.yml is present
   - ON: Build branch updates
