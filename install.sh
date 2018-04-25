@@ -14,5 +14,4 @@ cp normal-checks/.eslintignore     .eslintignore
 cp normal-checks/.mdlrc            .mdlrc
 cp normal-checks/.mdlrc.style.rb   .mdlrc.style.rb
 cp normal-checks/.stylelintrc.json .stylelintrc.json
-cp normal-checks/.stylelintrc.syntax.json .stylelintrc.syntax.json
 cp normal-checks/.stylelintignore  .stylelintignore
