@@ -26,9 +26,7 @@ before_script:
   - cd ../
   - npm install --silent -g npm
   - npm install --silent -g acorn
-  - npm install --silent -g stylelint
-  - npm install --silent -g stylelint-order
-  - npm install --silent -g stylelint-csstree-validator
+  - npm install --silent -g w3c-css
 
 script:
   - ./normal-checks/check-config.sh
