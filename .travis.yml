@@ -22,7 +22,7 @@ addons:
 before_script:
   - git clone https://github.com/eustasy/normal-checks.git
   - cd normal-checks
-  - git checkout 6ef47d5504d44973d8c2cfc5f6a5f68d28bb06e3
+  - git checkout 2b23ee3dbb274409ae51a620ae9d6fef6516781a
   - cd ../
   - npm install --silent -g npm
   - npm install --silent -g acorn
