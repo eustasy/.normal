@@ -35,6 +35,8 @@ engines:
   phpcodesniffer:
     enabled: true
     checks:
+      Generic Files LineLength TooLong:
+        enabled: false
       Generic WhiteSpace DisallowTabIndent TabsUsed:
         enabled: false
       PSR2 ControlStructures ControlStructureSpacing SpacingAfterOpenBrace:
@@ -54,6 +56,8 @@ engines:
   phpmd:
     enabled: true
     checks:
+      CleanCode/BooleanArgumentFlag:
+        enabled: false
       Controversial/CamelCaseParameterName:
         enabled: false
       Controversial/CamelCaseVariableName:
