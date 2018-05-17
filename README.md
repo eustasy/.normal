@@ -12,7 +12,7 @@ cp normal-checks/.travis.yml .travis.yml &&
 cp normal-checks/install.sh install.sh &&
 chmod 755 install.sh &&
 cd normal-checks &&
-git checkout 2b23ee3dbb274409ae51a620ae9d6fef6516781a &&
+git checkout b92da74ddf4b05b698e2d12ebd56e965d6749397 &&
 cd ../ &&
 ./install.sh;
 ```
@@ -23,7 +23,7 @@ rm -Rf normal-checks;
 ```
 2. Edit the `.travis.yml` email parameter and add any initialisers or tests you may have.
 ```
-git commit -am "Install eustasy Normalized Checks 1.10.0";
+git commit -am "Install eustasy Normalized Checks 1.10.1";
 git push
 ```
 3. Travis CI Settings:
