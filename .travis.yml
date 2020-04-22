@@ -41,6 +41,6 @@ script:
 notifications:
   email:
     recipients:
-      - lewisgoddard@eustasy.org
+      - lewis.goddard@eustasy.org
     on_success: change
     on_failure: change
