@@ -13,7 +13,7 @@ checks:
 plugins:
   csslint:
     enabled: false
-    # Stylelint at Codacy used instead.
+    # Stylelint is used instead.
   duplication:
     enabled: true
     config:
@@ -63,6 +63,8 @@ plugins:
       Controversial/CamelCaseVariableName:
         enabled: false
   shellcheck:
+    enabled: true
+  stylelint:
     enabled: true
 
 exclude_patterns:
