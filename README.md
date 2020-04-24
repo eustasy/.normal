@@ -40,12 +40,12 @@ git push
 
 | Test | Language | Travic CI | Code Climate |
 |------|----------|-----------|--------------|
-| Acorn* | JavaScript     | Yes | N/a |
-| JSON Validator* | JSON  | Yes | N/a |
-| Nginx Config* | Conf    | No⁺ | No  |
-| PHP Validator* | PHP    | Yes | N/a |
+| Acorn | JavaScript      | Yes | N/a |
+| JSON Validator | JSON   | Yes | N/a |
+| Nginx Config | Conf     | No⁺ | No  |
+| PHP Validator | PHP     | Yes | N/a |
 | SQLint | SQL            | No⁺ | No  |
-| XML Validator* | XML    | Yes | N/a |
+| XML Validator | XML     | Yes | N/a |
 | Duplication | All       | No  | Yes |
 | FixMe | All             | No  | Yes |
 | Coverage | PHP          | No  | Yes |
@@ -58,7 +58,6 @@ git push
 | Shellcheck | Bash       | No  | Yes |
 | Stylelint | CSS         | No  | Yes |
 
-* Not true checkers, just syntax.  
 ^ Not configured for this runtime.  
 ⁺ Waiting to be implemented.
 
