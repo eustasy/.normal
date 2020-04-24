@@ -15,7 +15,8 @@ engines:
     # Enabled in Code Climate
     enabled: false
   stylelint:
-    enabled: true
+    # Enabled in Code Climate
+    enabled: false
   duplication:
     enabled: true
   metrics:
