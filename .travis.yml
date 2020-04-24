@@ -1,7 +1,8 @@
 # eustasy Normalized Checks 2.0.0-beta
 
-dist: trusty
-sudo: required
+os: linux
+arch: arm64
+dist: bionic
 
 # https://secure.php.net/supported-versions.php
 language: php
