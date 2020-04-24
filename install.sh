@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Clean up older installs
+rm .codacy.yml
+rm check-config.sh
+rm check-permissions.sh
+
+# Set up current checks
 cp normal-checks/.codeclimate.yml  .codeclimate.yml
 cp normal-checks/.eslintrc.json    .eslintrc.json
 cp normal-checks/.eslintignore     .eslintignore
