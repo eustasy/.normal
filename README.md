@@ -5,23 +5,22 @@
 
 1.
 ```
-git clone https://github.com/eustasy/normal-checks.git &&
-cp normal-checks/.travis.yml .travis.yml &&
+git clone https://github.com/eustasy/.normal.git &&
 cp normal-checks/install.sh install.sh &&
 chmod 755 install.sh &&
-cd normal-checks &&
+cd .normal &&
 git checkout b92da74ddf4b05b698e2d12ebd56e965d6749397 &&
 cd ../ &&
 ./install.sh;
 ```
 Enter password if required.
 ```
-rm -Rf install.sh;
+rm install.sh;
 rm -Rf normal-checks;
 ```
 2. Commit your changes.
 ```
-git commit -am "Install eustasy Normalized Checks 2.0.0-beta";
+git commit -am "Install eustasy/.Normal 2.0.0-beta";
 git push
 ```
 3. Travis CI Settings:
