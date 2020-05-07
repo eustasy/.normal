@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/eustasy/normal-checks.svg?branch=master)](https://travis-ci.org/eustasy/normal-checks)
-[![Code Climate](https://codeclimate.com/github/eustasy/normal-checks/badges/gpa.svg)](https://codeclimate.com/github/eustasy/normal-checks)
+[![Build Status](https://travis-ci.org/eustasy/.normal.svg?branch=master)](https://travis-ci.org/eustasy/.normal)
+[![Code Climate](https://codeclimate.com/github/eustasy/.normal/badges/gpa.svg)](https://codeclimate.com/github/eustasy/.normal)
 
 ### How to integrate
 
