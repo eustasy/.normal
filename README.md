@@ -6,21 +6,21 @@
 1.
 ```
 git clone https://github.com/eustasy/.normal.git &&
-cp normal-checks/install.sh install.sh &&
+cp .normal/install.sh install.sh &&
 chmod 755 install.sh &&
 cd .normal &&
-git checkout b92da74ddf4b05b698e2d12ebd56e965d6749397 &&
+git checkout 95dcd24bc7b2150d13cf968bf654f0d9d2a6a0dd &&
 cd ../ &&
 ./install.sh;
 ```
 Enter password if required.
 ```
 rm install.sh;
-rm -Rf normal-checks;
+rm -Rf .normal;
 ```
 2. Commit your changes.
 ```
-git commit -am "Install eustasy/.Normal 2.0.0-beta";
+git commit -am "Install eustasy/.Normal 2.0.0-beta2";
 git push
 ```
 3. Travis CI Settings:
