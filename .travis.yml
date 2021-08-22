@@ -1,14 +1,14 @@
 # eustasy Normalized Checks 2.0.0-beta
 
 os: linux
-arch: arm64
-dist: bionic
+arch: amd64
+dist: focal
 
 # https://secure.php.net/supported-versions.php
 language: php
 php:
-  - 7.3
   - 7.4
+  - 8.0
 
 # Uncomment the following two lines if you wish to test any SQL files.
 #addons:
