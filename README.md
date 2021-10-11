@@ -20,7 +20,7 @@ rm -Rf .normal;
 ```
 2. Commit your changes.
 ```
-git commit -am "Install eustasy/.Normal 2.0.0-beta2";
+git commit -am "Install eustasy/.Normal 2.0";
 git push
 ```
 3. Travis CI Settings:
