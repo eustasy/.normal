@@ -9,7 +9,7 @@ git clone https://github.com/eustasy/.normal.git &&
 cp .normal/install.sh install.sh &&
 chmod 755 install.sh &&
 cd .normal &&
-git checkout 95dcd24bc7b2150d13cf968bf654f0d9d2a6a0dd &&
+git checkout 143baa3fcdbd30302def591074cd44b09d42c4a4 &&
 cd ../ &&
 ./install.sh;
 ```
