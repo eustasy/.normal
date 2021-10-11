@@ -17,7 +17,7 @@ php:
 before_script:
   - git clone https://github.com/eustasy/.normal.git
   - cd .normal
-  - git checkout b92da74ddf4b05b698e2d12ebd56e965d6749397
+  - git checkout 143baa3fcdbd30302def591074cd44b09d42c4a4
   - cd ../
   - npm install --silent -g npm
   # for testing JavaScript
