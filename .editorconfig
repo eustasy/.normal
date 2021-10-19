@@ -11,6 +11,11 @@ insert_final_newline = true
 max_line_length = 140
 tab_width = 4
 
+[*.{hs,py,yml}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
 # Markup files
-[{*.html,*.xml,*.yml}]
+[*.{html,xml}]
 tab_width = 2
