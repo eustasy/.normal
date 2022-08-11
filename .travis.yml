@@ -2,13 +2,15 @@
 
 os: linux
 arch: amd64
-dist: focal
+dist: ubuntu-latest
 
 # https://secure.php.net/supported-versions.php
 language: php
 php:
   - 7.4
   - 8.0
+  - 8.1
+  - 8.2
 
 # Uncomment the following two lines if you wish to test any SQL files.
 #addons:
