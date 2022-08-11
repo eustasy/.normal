@@ -2,7 +2,7 @@
 
 os: linux
 arch: amd64
-dist: jammy
+dist: trusty
 
 # https://secure.php.net/supported-versions.php
 language: php
