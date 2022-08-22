@@ -21,6 +21,7 @@ rm -Rf .normal;
 
 2. Commit your changes.
 ```
+git add .github/workflows/normal.yml
 git commit -am "Install eustasy/.Normal 3.0";
 git push
 ```
