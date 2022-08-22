@@ -14,4 +14,5 @@ cp .normal/.mdlrc            .mdlrc
 cp .normal/.mdlrc.style.rb   .mdlrc.style.rb
 cp .normal/.stylelintrc.json .stylelintrc.json
 cp .normal/.stylelintignore  .stylelintignore
+mkdir -p .github/workflows/
 cp .normal/.github/workflows/normal.yml .github/workflows/normal.yml
