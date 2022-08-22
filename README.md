@@ -9,7 +9,7 @@ git clone https://github.com/eustasy/.normal.git &&
 cp .normal/install.sh install.sh &&
 chmod 755 install.sh &&
 cd .normal &&
-git checkout d2feffd60f7e76680c37f7512833417037c019ec &&
+git checkout 5408f4ab384ceebf276686578963498f1ade3f55 &&
 cd ../ &&
 ./install.sh;
 ```
@@ -21,7 +21,7 @@ rm -Rf .normal;
 
 2. Commit your changes.
 ```
-git commit -am "Install eustasy/.Normal 2.0";
+git commit -am "Install eustasy/.Normal 3.0";
 git push
 ```
 
