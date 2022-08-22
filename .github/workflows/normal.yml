@@ -40,6 +40,9 @@ jobs:
     - name: .Normal - Check PHP
       run: ./.normal/check-php.sh
       
+    - name: .Normal - Check SQL
+      uses: Bidaya0/sql-lint-in-action@v0.0.2
+      
     - name: .Normal - Check JSON
       run: php .normal/check-json.php
       
