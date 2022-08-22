@@ -18,32 +18,26 @@ Enter password if required.
 rm install.sh;
 rm -Rf .normal;
 ```
+
 2. Commit your changes.
 ```
 git commit -am "Install eustasy/.Normal 2.0";
 git push
 ```
-3. Travis CI Settings:
-  - ON: Build only if .travis.yml is present
-  - ON: Build branch updates
-  - OFF: Limit concurrent jobs
-  - ON: Build pull request updates
-  - OFF: Auto cancel branch builds
-  - OFF: Auto cancel pull request builds
-  - CRON: Daily on master regardless.
-4. Code Climate Settings
+
+3. Code Climate Settings
   - ON: Settings > Git Repository > Webhook on GitHub
   - ON: Settings > Git Repository > Integration with pull request status updates
 
 ### What it checks
 
-| Test | Language | Travic CI | Code Climate |
-|------|----------|-----------|--------------|
+| Test | Language | GitHub Actions | Code Climate |
+|------|----------|----------------|--------------|
 | Acorn | JavaScript      | Yes | N/a |
 | JSON Validator | JSON   | Yes | N/a |
 | Nginx Config | Conf     | No⁺ | No  |
 | PHP Validator | PHP     | Yes | N/a |
-| SQLint | SQL            | No⁺ | No  |
+| SQLint | SQL            | Yes | No  |
 | XML Validator | XML     | Yes | N/a |
 | Duplication | All       | No  | Yes |
 | FixMe | All             | No  | Yes |
