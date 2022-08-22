@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.com/eustasy/.normal.svg?branch=main)](https://app.travis-ci.com/github/eustasy/.normal)
+[![Normal](https://github.com/eustasy/.normal/actions/workflows/normal.yml/badge.svg)](https://github.com/eustasy/.normal/actions/workflows/normal.yml)
 [![Code Climate](https://codeclimate.com/github/eustasy/.normal/badges/gpa.svg)](https://codeclimate.com/github/eustasy/.normal)
 
 ### How to integrate
