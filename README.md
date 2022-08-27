@@ -1,5 +1,7 @@
 # eustasy .Normal Checks
 
+##### Normalized checks for syntax for eustasy applications. Checks PHP, CSS, JS, JSON, MD, and XML.
+
 [![Normal](https://github.com/eustasy/.normal/actions/workflows/normal.yml/badge.svg)](https://github.com/eustasy/.normal/actions/workflows/normal.yml)
 [![Code Climate](https://codeclimate.com/github/eustasy/.normal/badges/gpa.svg)](https://codeclimate.com/github/eustasy/.normal)
 
