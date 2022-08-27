@@ -4,26 +4,19 @@
 ### How to integrate
 
 1.
-```
+```bash
 git clone https://github.com/eustasy/.normal.git &&
 cp .normal/install.sh install.sh &&
 chmod 755 install.sh &&
-./install.sh;
-```
-Enter password if required.
-```
-rm install.sh;
+./install.sh &&
+rm install.sh &&
 rm -Rf .normal;
-```
-
-2. Commit your changes.
-```
-git add .github/workflows/normal.yml
+git add .github/workflows/normal.yml;
 git commit -am "Install eustasy/.Normal 3.0";
-git push
+git push;
 ```
 
-3. Code Climate Settings
+2. Code Climate Settings
   - ON: Settings > Git Repository > Webhook on GitHub
   - ON: Settings > Git Repository > Integration with pull request status updates
 
