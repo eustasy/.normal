@@ -8,9 +8,6 @@
 git clone https://github.com/eustasy/.normal.git &&
 cp .normal/install.sh install.sh &&
 chmod 755 install.sh &&
-cd .normal &&
-git checkout af240a6c8960177bcb1d07815732df7eb15970c1 &&
-cd ../ &&
 ./install.sh;
 ```
 Enter password if required.
