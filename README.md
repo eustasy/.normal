@@ -15,7 +15,7 @@ chmod 755 install.sh &&
 rm install.sh &&
 rm -Rf .normal
 git add -A
-git commit -m "Install eustasy/.Normal 4.0"
+git commit -m "Install eustasy/.Normal 4.0beta1"
 git push
 ```
 
@@ -65,6 +65,41 @@ git push
 | trivy | All | Yes | — |
 | semgrep | All | Yes | — |
 | osv-scanner | All | Yes | — |
+
+### SQL Dialect
+
+The default SQL dialect is `mysql`. To override it in a project, add or edit
+`.qlty/configs/.sqlfluff` after running `install.sh`:
+
+```ini
+[sqlfluff]
+dialect = postgres
+```
+
+Any dialect supported by SQLFluff is valid (e.g. `postgres`, `sqlite`, `tsql`, `ansi`).
+
+### Migrating from .Normal 3.x
+
+```bash
+git clone https://github.com/eustasy/.normal.git &&
+cp .normal/install.sh install.sh &&
+chmod 755 install.sh &&
+./install.sh &&
+rm install.sh &&
+rm -Rf .normal
+git add -A
+git commit -m "Migrate to eustasy/.Normal 4.0 (Qlty, Prettier, Ruff)"
+git push
+```
+
+Then:
+
+1. Connect the repo on [qlty.sh](https://qlty.sh) (replaces Code Climate)
+2. Add `QLTY_COVERAGE_TOKEN` to repo secrets (Settings → Secrets → Actions)
+3. Remove the `if: false` guard from whichever test workflows apply to the repo
+
+`install.sh` will automatically delete the old `.codeclimate.yml`, `.eslintrc.json`,
+`.stylelintrc.json`, `.mdlrc`, and related files.
 
 ### Excluded Paths
 
