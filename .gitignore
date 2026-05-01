@@ -1,3 +1,21 @@
 *~
 *custom*
-node_modules
+
+# JS / TS
+node_modules/
+
+# Python
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+
+# PHP
+vendor/
+
+# Coverage output
+coverage/
+*.lcov
+
+# Qlty CLI cache
+.qlty/cache/

@@ -1,76 +1,75 @@
 # eustasy .Normal Checks
 
-##### Normalized checks for syntax for eustasy applications. Checks PHP, CSS, JS, JSON, MD, and XML.
+Normalized linting, formatting, and CI for eustasy applications. Covers HTML, Markdown,
+JS/TS, CSS/SCSS, Python, PHP, XML, JSON, SQL, YAML, and Shell.
 
-[![Normal](https://github.com/eustasy/.normal/actions/workflows/normal.yml/badge.svg)](https://github.com/eustasy/.normal/actions/workflows/normal.yml)
-[![Code Climate](https://codeclimate.com/github/eustasy/.normal/badges/gpa.svg)](https://codeclimate.com/github/eustasy/.normal)
+Powered by [Qlty](https://qlty.sh).
 
 ### How to integrate
 
-1.
 ```bash
 git clone https://github.com/eustasy/.normal.git &&
 cp .normal/install.sh install.sh &&
 chmod 755 install.sh &&
 ./install.sh &&
 rm install.sh &&
-rm -Rf .normal;
-git add .github/workflows/normal.yml;
-git commit -am "Install eustasy/.Normal 3.0";
-git push;
+rm -Rf .normal
+git add -A
+git commit -m "Install eustasy/.Normal 4.0"
+git push
 ```
 
-2. Code Climate Settings
-  - ON: Settings > Git Repository > Webhook on GitHub
-  - ON: Settings > Git Repository > Integration with pull request status updates
+### What it installs
 
-### What it checks
+| File | Purpose |
+|------|---------|
+| `.editorconfig` | Universal editor settings (indent, line length) |
+| `.vscode/settings.json` | Format-on-save + recommended extensions |
+| `.qlty/qlty.toml` | Qlty orchestration: plugins, smells, exclusions |
+| `.qlty/configs/oxlint.json` | JS/TS linter (OXC) |
+| `.qlty/configs/.stylelintrc.json` | CSS/SCSS linter |
+| `.qlty/configs/.markdownlint.jsonc` | Markdown linter |
+| `.qlty/configs/ruff.toml` | Python lint + format |
+| `.qlty/configs/.php-cs-fixer.php` | PHP formatter |
+| `.qlty/configs/.sqlfluff` | SQL lint + format (default dialect: mysql) |
+| `.qlty/configs/.prettierrc.json` | Prettier config (HTML, MD, JS/TS, CSS/SCSS, JSON, YAML, XML) |
+| `.github/dependabot.yml` | Automated dependency updates |
+| `.github/workflows/security.yml` | Security scanning (every push) |
+| `.github/workflows/{language}.yml` | Per-language lint + format CI |
+| `.github/workflows/test-{language}.yml` | Test + coverage CI (activate by removing `if: false`) |
 
-| Test | Language | GitHub Actions | Code Climate |
-|------|----------|----------------|--------------|
-| Acorn | JavaScript      | Yes | N/a |
-| JSON Validator | JSON   | Yes | N/a |
-| Nginx Config | Conf     | No⁺ | No  |
-| PHP Validator | PHP     | Yes | N/a |
-| SQLint | SQL            | Yes | No  |
-| XML Validator | XML     | Yes | N/a |
-| Duplication | All       | No  | Yes |
-| FixMe | All             | No  | Yes |
-| Coverage | PHP          | No  | Yes |
-| CSSLint | CSS           | No  | No^ |
-| ESLint | JavaScript     | No  | Yes |
-| MarkdownLint | Markdown | No  | Yes |
-| PHPCodeSniffer | PHP    | No  | Yes |
-| PHPMD | PHP             | No  | Yes |
-| Rubocop | Ruby          | No  | No^ |
-| Shellcheck | Bash       | No  | Yes |
-| Stylelint | CSS         | No  | Yes |
+### Plugins
 
-^ Not configured for this runtime.  
-⁺ Waiting to be implemented.
-
-### Checked Files
-
-Tests cover the following extensions:
-
-- *.conf
-- *.css
-- *.js
-- *.json
-- *.md
-- *.phar
-- *.php
-- *.sh
-- *.sql
-- *.xml
+| Plugin | Language | Lint | Format |
+|--------|----------|------|--------|
+| oxc | JS / TS | Yes | — |
+| knip | JS / TS | Yes | — |
+| prettier | HTML, MD, JS/TS, CSS/SCSS, JSON, YAML, XML | — | Yes |
+| stylelint | CSS / SCSS | Yes | — |
+| markdownlint | Markdown | Yes | — |
+| ruff | Python | Yes | Yes |
+| bandit | Python | Yes | — |
+| php-codesniffer | PHP | Yes | — |
+| phpmd | PHP | Yes | — |
+| phpstan | PHP | Yes | — |
+| php-cs-fixer | PHP | — | Yes |
+| sqlfluff | SQL | Yes | Yes |
+| shellcheck | Shell | Yes | — |
+| shfmt | Shell | — | Yes |
+| yamllint | YAML | Yes | — |
+| actionlint | YAML (GH Actions) | Yes | — |
+| zizmor | YAML (GH Actions) | Yes | — |
+| editorconfig-checker | All | Yes | — |
+| dotenv-linter | `.env` | Yes | — |
+| gitleaks | All | Yes | — |
+| trivy | All | Yes | — |
+| semgrep | All | Yes | — |
+| osv-scanner | All | Yes | — |
 
 ### Excluded Paths
 
-Most test exclude the following paths:
-
-- _libs/*
-- *.min.css
-- *.custom.css
-- *.min.js
-- *.pack.js
-- *.custom.js
+```
+**/*.min.*   **/*.pack.*   **/*.custom.*   **/_libs/**
+**/vendor/** **/node_modules/** **/dist/** **/build/**
+**/out/**    **/coverage/**     **/__pycache__/** **/.pytest_cache/**
+```
