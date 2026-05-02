@@ -15,7 +15,7 @@ chmod 755 install.sh &&
 rm install.sh &&
 rm -Rf .normal
 git add -A
-git commit -m "Install eustasy/.Normal 4.0beta2"
+git commit -m "Install eustasy/.Normal 4.0beta3"
 git push
 ```
 
