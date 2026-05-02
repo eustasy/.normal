@@ -1,4 +1,5 @@
-[qlty]
+config_version = "0"
+
 # Exclude patterns apply to all plugins (linting and formatting).
 # Sources: old .eslintignore, .stylelintignore, and .codeclimate.yml defaults.
 exclude_patterns = [
@@ -32,15 +33,6 @@ exclude_patterns = [
 # Matches Phoenix thresholds.
 
 [smells]
-[smells.identical]
-threshold = 15
-
-[smells.similar]
-threshold = 15
-
-[smells.complexity]
-threshold = 22
-
 [smells.nested_control_flow]
 threshold = 4
 
@@ -60,15 +52,12 @@ name = "oxc"
 
 [[plugin]]
 name = "stylelint"
-config_file = ".qlty/configs/.stylelintrc.json"
 
 [[plugin]]
 name = "markdownlint"
-config_file = ".qlty/configs/.markdownlint.jsonc"
 
 [[plugin]]
 name = "ruff"
-config_file = ".qlty/configs/ruff.toml"
 
 [[plugin]]
 name = "php-codesniffer"
@@ -78,7 +67,6 @@ name = "phpstan"
 
 [[plugin]]
 name = "sqlfluff"
-config_file = ".qlty/configs/.sqlfluff"
 
 [[plugin]]
 name = "yamllint"
@@ -105,11 +93,9 @@ name = "editorconfig-checker"
 
 [[plugin]]
 name = "prettier"
-config_file = ".qlty/configs/.prettierrc.json"
 
 [[plugin]]
 name = "php-cs-fixer"
-config_file = ".qlty/configs/.php-cs-fixer.php"
 
 [[plugin]]
 name = "shfmt"
