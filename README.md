@@ -50,7 +50,6 @@ git push
 | ruff | Python | Yes | Yes |
 | bandit | Python | Yes | — |
 | php-codesniffer | PHP | Yes | — |
-| phpmd | PHP | Yes | — |
 | phpstan | PHP | Yes | — |
 | php-cs-fixer | PHP | — | Yes |
 | sqlfluff | SQL | Yes | Yes |
