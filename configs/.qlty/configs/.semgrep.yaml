@@ -1,0 +1,5 @@
+# Semgrep configuration for security scanning.
+# Qlty requires at least one rule or config entry to run semgrep without error.
+# Add project-specific rules here as needed.
+# See: https://semgrep.dev/docs/writing-rules/overview
+rules: []

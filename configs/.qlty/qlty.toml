@@ -93,6 +93,7 @@ name = "editorconfig-checker"
 
 [[plugin]]
 name = "prettier"
+packages = ["@prettier/plugin-xml"]
 
 [[plugin]]
 name = "php-cs-fixer"
