@@ -74,9 +74,6 @@ config_file = ".qlty/configs/ruff.toml"
 name = "php-codesniffer"
 
 [[plugin]]
-name = "phpmd"
-
-[[plugin]]
 name = "phpstan"
 
 [[plugin]]
