@@ -62,7 +62,6 @@ git push
 | dotenv-linter | `.env` | Yes | — |
 | gitleaks | All | Yes | — |
 | trivy | All | Yes | — |
-| semgrep | All | Yes | — |
 | osv-scanner | All | Yes | — |
 
 ### SQL Dialect

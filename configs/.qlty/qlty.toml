@@ -113,7 +113,4 @@ name = "bandit"
 name = "trivy"
 
 [[plugin]]
-name = "semgrep"
-
-[[plugin]]
 name = "osv-scanner"
