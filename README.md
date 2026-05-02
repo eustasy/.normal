@@ -86,9 +86,9 @@ cp .normal/install.sh install.sh &&
 chmod 755 install.sh &&
 ./install.sh &&
 rm install.sh &&
-rm -Rf .normal
-git add -A
-git commit -m "Migrate to eustasy/.Normal 4.0 (Qlty, Prettier, Ruff)"
+rm -Rf .normal;
+git add -A;
+git commit -m "Migrate to eustasy/.Normal 4.0 (Qlty, Prettier, Ruff)";
 git push
 ```
 
