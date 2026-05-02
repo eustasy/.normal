@@ -47,6 +47,12 @@ threshold = 4
 [smells.function_parameters]
 threshold = 10
 
+# ── Source ───────────────────────────────────────────────────────────────────
+
+[[source]]
+name = "default"
+default = true
+
 # ── Linters ──────────────────────────────────────────────────────────────────
 
 [[plugin]]
