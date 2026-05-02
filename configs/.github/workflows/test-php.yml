@@ -1,9 +1,6 @@
 # eustasy/.Normal 4.0beta1
 name: Test (PHP)
 
-# Remove the `if: false` below to activate this workflow.
-if: false
-
 on:
   push:
     branches: [main]
@@ -17,6 +14,8 @@ permissions:
 
 jobs:
   test-php:
+    # Remove the `if: false` below to activate this workflow.
+    if: false
     name: PHPUnit + coverage
     runs-on: ubuntu-latest
     strategy:
