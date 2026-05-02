@@ -1,5 +1,5 @@
 # eustasy/.Normal 4.0beta1
-name: PHP
+name: Normal (PHP)
 
 on:
   push:
