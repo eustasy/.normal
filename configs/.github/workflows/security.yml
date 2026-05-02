@@ -23,4 +23,4 @@ jobs:
       - uses: qltysh/qlty-action/install@v2
 
       - name: Security scan
-        run: qlty check --all --no-formatters --filter=gitleaks --filter=trivy --filter=bandit --filter=semgrep --filter=osv-scanner
+        run: qlty check --all --no-formatters --filter=gitleaks,trivy,bandit,semgrep,osv-scanner

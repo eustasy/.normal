@@ -1,5 +1,5 @@
 # eustasy/.Normal 4.0beta1
-name: YAML
+name: Normal (YAML)
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
       - uses: qltysh/qlty-action/install@v2
 
       - name: Lint (yamllint, actionlint, zizmor, editorconfig-checker)
-        run: qlty check --all --no-formatters --filter=yamllint --filter=actionlint --filter=zizmor --filter=editorconfig-checker
+        run: qlty check --all --no-formatters --filter=yamllint,actionlint,zizmor,editorconfig-checker
 
       - name: Format check (prettier)
         run: qlty check --all --filter=prettier

@@ -30,7 +30,7 @@ jobs:
       - uses: qltysh/qlty-action/install@v2
 
       - name: Lint (ruff, bandit)
-        run: qlty check --all --no-formatters --filter=ruff --filter=bandit
+        run: qlty check --all --no-formatters --filter=ruff,bandit
 
       - name: Format check (ruff)
         run: qlty check --all --filter=ruff

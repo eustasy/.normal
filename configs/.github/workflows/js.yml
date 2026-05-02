@@ -1,5 +1,5 @@
 # eustasy/.Normal 4.0beta1
-name: JavaScript / TypeScript
+name: Normal (JavaScript / TypeScript)
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
       - uses: qltysh/qlty-action/install@v2
 
       - name: Lint (oxc, knip)
-        run: qlty check --all --no-formatters --filter=oxc --filter=knip
+        run: qlty check --all --no-formatters --filter=oxc,knip
 
       - name: Format check (prettier)
         run: qlty check --all --filter=prettier

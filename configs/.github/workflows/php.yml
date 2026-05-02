@@ -31,7 +31,7 @@ jobs:
       - uses: qltysh/qlty-action/install@v2
 
       - name: Lint (phpcs, phpmd, phpstan)
-        run: qlty check --all --no-formatters --filter=php-codesniffer --filter=phpmd --filter=phpstan
+        run: qlty check --all --no-formatters --filter=php-codesniffer,phpmd,phpstan
 
       - name: Format check (php-cs-fixer)
         run: qlty check --all --filter=php-cs-fixer
