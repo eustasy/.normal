@@ -60,9 +60,6 @@ name = "markdownlint"
 name = "ruff"
 
 [[plugin]]
-name = "php-codesniffer"
-
-[[plugin]]
 name = "phpstan"
 
 [[plugin]]
@@ -85,9 +82,6 @@ name = "knip"
 
 [[plugin]]
 name = "dotenv-linter"
-
-[[plugin]]
-name = "editorconfig-checker"
 
 # ── Formatters ───────────────────────────────────────────────────────────────
 
