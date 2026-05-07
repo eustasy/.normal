@@ -5,14 +5,5 @@
   "semi": true,
   "tabWidth": 2,
   "useTabs": false,
-  "proseWrap": "always",
-  "plugins": ["@prettier/plugin-xml"],
-  "overrides": [
-    {
-      "files": ["*.xml"],
-      "options": {
-        "xmlWhitespaceSensitivity": "ignore"
-      }
-    }
-  ]
+  "proseWrap": "always"
 }

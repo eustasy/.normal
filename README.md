@@ -32,7 +32,7 @@ git push
 | `.qlty/configs/ruff.toml` | Python lint + format |
 | `.qlty/configs/.php-cs-fixer.php` | PHP formatter |
 | `.qlty/configs/.sqlfluff` | SQL lint + format (default dialect: mysql) |
-| `.qlty/configs/.prettierrc.json` | Prettier config (HTML, MD, JS/TS, CSS/SCSS, JSON, YAML, XML) |
+| `.qlty/configs/.prettierrc.json` | Prettier config (JS/TS, JSON) |
 | `.github/dependabot.yml` | Automated dependency updates |
 | `.github/workflows/security.yml` | Security scanning (every push) |
 | `.github/workflows/{language}.yml` | Per-language lint + format CI |
@@ -44,12 +44,13 @@ git push
 |--------|----------|------|--------|
 | oxc | JS / TS | Yes | — |
 | knip | JS / TS | Yes | — |
-| prettier | HTML, MD, JS/TS, CSS/SCSS, JSON, YAML, XML | — | Yes |
-| stylelint | CSS / SCSS | Yes | — |
+| prettier | JS/TS, JSON | — | Yes |
+| stylelint | CSS / SCSS | Yes | Yes |
 | markdownlint | Markdown | Yes | — |
+| html-validate | HTML | Yes | — |
+| xmllint | XML | Yes | — |
 | ruff | Python | Yes | Yes |
 | bandit | Python | Yes | — |
-| php-codesniffer | PHP | Yes | — |
 | phpstan | PHP | Yes | — |
 | php-cs-fixer | PHP | — | Yes |
 | sqlfluff | SQL | Yes | Yes |
@@ -58,7 +59,6 @@ git push
 | yamllint | YAML | Yes | — |
 | actionlint | YAML (GH Actions) | Yes | — |
 | zizmor | YAML (GH Actions) | Yes | — |
-| editorconfig-checker | All | Yes | — |
 | dotenv-linter | `.env` | Yes | — |
 | gitleaks | All | Yes | — |
 | trivy | All | Yes | — |

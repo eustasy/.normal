@@ -87,7 +87,6 @@ name = "dotenv-linter"
 
 [[plugin]]
 name = "prettier"
-extra_packages = ["@prettier/plugin-xml"]
 
 [[plugin]]
 name = "php-cs-fixer"
