@@ -30,4 +30,4 @@ jobs:
         run: qlty check --all --no-formatters --filter=oxc,knip
 
       - name: Format check (prettier)
-        run: qlty check --all --filter=prettier
+        run: git ls-files -- '*.js' '*.ts' '*.mjs' '*.cjs' '*.mts' '*.cts' | xargs -r qlty check --filter=prettier

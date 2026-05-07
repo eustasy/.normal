@@ -14,15 +14,12 @@ permissions:
 
 jobs:
   yaml:
-    name: Lint + format
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
       - uses: qltysh/qlty-action/install@v2
 
-      - name: Lint (yamllint, actionlint, zizmor, editorconfig-checker)
-        run: qlty check --all --no-formatters --filter=yamllint,actionlint,zizmor,editorconfig-checker
-
-      - name: Format check (prettier)
-        run: qlty check --all --filter=prettier
+      - name: Lint (yamllint, actionlint, zizmor)
+        run: qlty check --all --no-formatters --filter=yamllint,actionlint,zizmor

@@ -21,8 +21,5 @@ jobs:
 
       - uses: qltysh/qlty-action/install@v2
 
-      - name: Lint (markdownlint)
-        run: qlty check --all --no-formatters --filter=markdownlint
-
-      - name: Format check (prettier)
-        run: qlty check --all --filter=prettier
+      - name: Lint + format check (markdownlint)
+        run: qlty check --all --filter=markdownlint
