@@ -27,4 +27,4 @@ jobs:
           node-version: lts/*
 
       - name: Lint HTML (html-validate)
-        run: npx --yes html-validate "**/*.html" "**/*.htm"
+        run: git ls-files -- '*.html' '*.htm' | xargs -r npx --yes html-validate
