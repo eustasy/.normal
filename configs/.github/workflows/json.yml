@@ -2,6 +2,7 @@
 name: Normal (JSON)
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["**.json"]

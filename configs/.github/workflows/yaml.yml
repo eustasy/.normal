@@ -2,6 +2,7 @@
 name: Normal (YAML)
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["**.yml", "**.yaml"]

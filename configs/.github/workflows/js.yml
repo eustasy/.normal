@@ -2,6 +2,7 @@
 name: Normal (JavaScript / TypeScript)
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["**.js", "**.ts", "**.mjs", "**.cjs", "**.mts", "**.cts"]

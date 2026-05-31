@@ -2,6 +2,7 @@
 name: Normal (HTML)
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["**.html", "**.htm"]

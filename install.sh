@@ -25,11 +25,13 @@ cp -R ".normal/configs/.qlty/configs/." ".qlty/configs/"
 
 # 5. GitHub workflows
 
-# Check if any files matching the given name patterns exist in the repo,
-# excluding tool directories (.git, .github, .normal, .qlty).
+# Check if any non-excluded files matching the given name patterns exist in
+# the repo. Pruned dirs mirror qlty.toml's exclude_patterns plus tool dirs
+# (.vscode, .claude, .qlty, deps, build output), so files .normal never lints
+# don't trigger a workflow install.
 has_files() {
   for pat in "$@"; do
-    match=$(find . \( -path './.git' -o -path './.github' -o -path './.normal' -o -path './.qlty' \) -prune -o -name "$pat" -print -quit 2>/dev/null)
+    match=$(find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name _libs \) -prune -o -type f -name "$pat" -print -quit 2>/dev/null)
     [ -n "$match" ] && return 0
   done
   return 1
@@ -43,6 +45,13 @@ copy_workflow() {
     cp ".normal/configs/.github/workflows/${wf}.yml" ".github/workflows/${wf}.yml"
   fi
 }
+
+# Remove .normal-managed workflows before re-checking, so updating .normal drops
+# any whose file types are no longer present (or are now excluded). Workflows the
+# project added itself are left untouched.
+for wf in security css env html js json md php python sh sql test-js test-php test-python xml yaml; do
+  rm -f ".github/workflows/${wf}.yml"
+done
 
 cp .normal/configs/.github/dependabot.yml .github/dependabot.yml
 

@@ -2,6 +2,7 @@
 name: Normal (XML)
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["**.xml"]

@@ -2,6 +2,7 @@
 name: Normal (Shell)
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["**.sh"]
