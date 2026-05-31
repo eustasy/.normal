@@ -33,7 +33,7 @@ cp -R ".normal/configs/.qlty/configs/." ".qlty/configs/"
 # "clone and run" copies this installer to the repo root, and it must not count
 # itself as a shell script and pull in sh.yml.
 count_files() {
-  find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name _libs \) -prune -o -type f -name "$1" ! -path './install.sh' ! -name composer.json ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print 2>/dev/null | wc -l
+  find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name .venv -o -name _libs \) -prune -o -type f -name "$1" ! -path './install.sh' ! -name composer.json ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print 2>/dev/null | wc -l
 }
 
 # Install a workflow only if matching files exist, reporting the count either way

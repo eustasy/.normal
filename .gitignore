@@ -19,3 +19,4 @@ coverage/
 
 # Qlty CLI cache
 .qlty/cache/
+/.claude
