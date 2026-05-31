@@ -33,7 +33,7 @@ git push
 | `.qlty/configs/.php-cs-fixer.php` | PHP formatter |
 | `.qlty/configs/.sqlfluff` | SQL lint + format (default dialect: mysql) |
 | `.qlty/configs/.prettierrc.json` | Prettier config (JS/TS, JSON) |
-| `.github/dependabot.yml` | Automated dependency updates |
+| `.github/dependabot.yml` | Automated dependency updates (only ecosystems whose manifests are present) |
 | `.github/workflows/security.yml` | Security scanning (every push) |
 | `.github/workflows/{language}.yml` | Per-language lint + format CI |
 | `.github/workflows/test-{language}.yml` | Test + coverage CI (activate by removing `if: false`) |

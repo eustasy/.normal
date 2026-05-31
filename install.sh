@@ -60,8 +60,100 @@ for wf in security css env html js json md php python sh sql test-js test-php te
   rm -f ".github/workflows/${wf}.yml"
 done
 
-cp .normal/configs/.github/dependabot.yml .github/dependabot.yml
-echo "Installed dependabot config."
+# Dependabot: only declare ecosystems whose package manifests are actually present,
+# so a repo isn't nagged about package managers it doesn't use. github-actions is
+# always included because install.sh always installs at least the security workflow,
+# so there are always pinned action versions to keep updated. Detection is root-only
+# to match the directory: "/" each block declares; manifests in subdirectories are
+# out of scope (as they were with the old static config).
+has_manifest() {
+  for f in "$@"; do
+    [ -e "./$f" ] && return 0
+  done
+  return 1
+}
+
+# Semver-versioned ecosystems (github-actions/bun/npm/composer/pip) share one
+# template: group their non-breaking bumps into a single "<name>-patching" PR.
+# $1 = ecosystem (also the group-name prefix); $2 = "allow" to add
+# `allow: dependency-type: all`, which we want for package managers with transitive
+# dependencies (bun/npm/composer/pip) but not for github-actions, where every
+# dependency is already direct.
+ecosystem_block() {
+  cat <<EOF
+  - package-ecosystem: "$1"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+EOF
+  if [ "$2" = allow ]; then
+    cat <<'EOF'
+    allow:
+      - dependency-type: "all"
+EOF
+  fi
+  cat <<EOF
+    groups:
+      $1-patching:
+        update-types:
+          - "minor"
+          - "patch"
+EOF
+}
+
+# gitsubmodule (the ecosystem value is singular) tracks commits, not semver, so the
+# minor/patch grouping above would never match; group every submodule bump into one
+# PR instead.
+gitsubmodule_block() {
+  cat <<'EOF'
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      gitsubmodule-all:
+        patterns:
+          - "*"
+EOF
+}
+
+# Map detected manifests to dependabot's package-ecosystem values. These mirror the
+# languages .normal already lints/tests (JS/TS, PHP, Python), plus github-actions
+# (always) and gitsubmodule (a vendoring mechanism, not a file type, so it has no
+# linter — keyed purely off .gitmodules). For JS, dependabot splits bun into its own
+# ecosystem while npm covers npm/yarn/pnpm; a bun repo still carries a package.json,
+# so detect bun first and don't also enable npm for it.
+echo "Installing dependabot config (github-actions always included)."
+gitsubmodule=0; bun=0; npm=0; composer=0; pip=0
+if has_manifest .gitmodules; then gitsubmodule=1; echo "  Found .gitmodules; adding gitsubmodule ecosystem."; else echo "  No .gitmodules; skipping gitsubmodule ecosystem."; fi
+if has_manifest bun.lock bun.lockb; then
+  bun=1; echo "  Found a bun lockfile; adding bun ecosystem."
+elif has_manifest package.json package-lock.json npm-shrinkwrap.json yarn.lock pnpm-lock.yaml; then
+  npm=1; echo "  Found an npm/yarn/pnpm manifest; adding npm ecosystem."
+else
+  echo "  No JS manifest; skipping bun/npm ecosystems."
+fi
+if has_manifest composer.json; then composer=1; echo "  Found composer.json; adding composer ecosystem."; else echo "  No composer manifest; skipping composer ecosystem."; fi
+if has_manifest requirements.txt pyproject.toml Pipfile setup.py setup.cfg; then pip=1; echo "  Found a Python manifest; adding pip ecosystem."; else echo "  No Python manifest; skipping pip ecosystem."; fi
+
+{
+  cat <<'EOF'
+# eustasy/.Normal 4.0beta7
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+EOF
+  ecosystem_block github-actions
+  if [ "$gitsubmodule" = 1 ]; then gitsubmodule_block;            fi
+  if [ "$bun" = 1 ];          then ecosystem_block bun allow;      fi
+  if [ "$npm" = 1 ];          then ecosystem_block npm allow;      fi
+  if [ "$composer" = 1 ];     then ecosystem_block composer allow; fi
+  if [ "$pip" = 1 ];          then ecosystem_block pip allow;      fi
+} > .github/dependabot.yml
 
 # Security workflow always runs regardless of file types present.
 cp .normal/configs/.github/workflows/security.yml .github/workflows/security.yml
