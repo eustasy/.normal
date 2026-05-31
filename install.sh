@@ -25,25 +25,29 @@ cp -R ".normal/configs/.qlty/configs/." ".qlty/configs/"
 
 # 5. GitHub workflows
 
-# Check if any non-excluded files matching the given name patterns exist in the
-# repo. Both the pruned dirs and the skipped file names mirror qlty.toml's
-# excludes — tool dirs (.vscode, .claude, .qlty), deps/build output, composer.json
-# and min/pack/custom bundles — so files .normal never lints don't trigger a
-# workflow install (e.g. a repo whose only JSON is composer.json gets no json.yml).
-has_files() {
-  for pat in "$@"; do
-    match=$(find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name _libs \) -prune -o -type f -name "$pat" ! -name composer.json ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print -quit 2>/dev/null)
-    [ -n "$match" ] && return 0
-  done
-  return 1
+# Count non-excluded files matching a single name pattern. Both the pruned dirs
+# and the skipped file names mirror qlty.toml's excludes — tool dirs (.vscode,
+# .claude, .qlty), deps/build output, composer.json and min/pack/custom bundles —
+# so files .normal never lints aren't counted (a repo whose only JSON is
+# composer.json reports 0 .json files).
+count_files() {
+  find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name _libs \) -prune -o -type f -name "$1" ! -name composer.json ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print 2>/dev/null | wc -l
 }
 
-# Copy a workflow only if matching files exist in the repo.
+# Install a workflow only if matching files exist, reporting the count either way
+# so it's obvious which workflows were installed and why.
 copy_workflow() {
   wf=$1
   shift
-  if has_files "$@"; then
+  count=0
+  for pat in "$@"; do
+    count=$((count + $(count_files "$pat")))
+  done
+  if [ "$count" -gt 0 ]; then
+    echo "Found $count $wf file(s); installing $wf workflow."
     cp ".normal/configs/.github/workflows/${wf}.yml" ".github/workflows/${wf}.yml"
+  else
+    echo "Found 0 $wf file(s); skipping $wf workflow."
   fi
 }
 
@@ -55,9 +59,11 @@ for wf in security css env html js json md php python sh sql test-js test-php te
 done
 
 cp .normal/configs/.github/dependabot.yml .github/dependabot.yml
+echo "Installed dependabot config."
 
 # Security workflow always runs regardless of file types present.
 cp .normal/configs/.github/workflows/security.yml .github/workflows/security.yml
+echo "Installed security workflow (always)."
 
 copy_workflow css        "*.css" "*.scss"
 copy_workflow env        ".env*"
