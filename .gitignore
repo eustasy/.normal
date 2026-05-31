@@ -19,4 +19,9 @@ coverage/
 
 # Qlty CLI cache
 .qlty/cache/
+.qlty/results
+.qlty/plugin_cachedir
+.qlty/out
+.qlty/logs
+
 /.claude
