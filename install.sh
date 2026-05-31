@@ -25,13 +25,14 @@ cp -R ".normal/configs/.qlty/configs/." ".qlty/configs/"
 
 # 5. GitHub workflows
 
-# Check if any non-excluded files matching the given name patterns exist in
-# the repo. Pruned dirs mirror qlty.toml's exclude_patterns plus tool dirs
-# (.vscode, .claude, .qlty, deps, build output), so files .normal never lints
-# don't trigger a workflow install.
+# Check if any non-excluded files matching the given name patterns exist in the
+# repo. Both the pruned dirs and the skipped file names mirror qlty.toml's
+# excludes — tool dirs (.vscode, .claude, .qlty), deps/build output, composer.json
+# and min/pack/custom bundles — so files .normal never lints don't trigger a
+# workflow install (e.g. a repo whose only JSON is composer.json gets no json.yml).
 has_files() {
   for pat in "$@"; do
-    match=$(find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name _libs \) -prune -o -type f -name "$pat" -print -quit 2>/dev/null)
+    match=$(find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name _libs \) -prune -o -type f -name "$pat" ! -name composer.json ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print -quit 2>/dev/null)
     [ -n "$match" ] && return 0
   done
   return 1
