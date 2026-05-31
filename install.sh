@@ -29,9 +29,11 @@ cp -R ".normal/configs/.qlty/configs/." ".qlty/configs/"
 # and the skipped file names mirror qlty.toml's excludes — tool dirs (.vscode,
 # .claude, .qlty), deps/build output, composer.json and min/pack/custom bundles —
 # so files .normal never lints aren't counted (a repo whose only JSON is
-# composer.json reports 0 .json files).
+# composer.json reports 0 .json files). ./install.sh is skipped too: the documented
+# "clone and run" copies this installer to the repo root, and it must not count
+# itself as a shell script and pull in sh.yml.
 count_files() {
-  find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name _libs \) -prune -o -type f -name "$1" ! -name composer.json ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print 2>/dev/null | wc -l
+  find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name _libs \) -prune -o -type f -name "$1" ! -path './install.sh' ! -name composer.json ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print 2>/dev/null | wc -l
 }
 
 # Install a workflow only if matching files exist, reporting the count either way
