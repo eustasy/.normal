@@ -20,6 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@v6
         with:
@@ -33,7 +35,7 @@ jobs:
         run: npx vitest run --coverage
 
       - name: Upload coverage to Qlty
-        uses: qltysh/qlty-action/coverage@v2
+        uses: qltysh/qlty-action/coverage@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
         with:
           coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: coverage/lcov.info
