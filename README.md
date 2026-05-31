@@ -101,8 +101,21 @@ Then:
 
 ### Excluded Paths
 
+Files are kept out of scope two ways:
+
+1. **Git.** Gitignored paths are never linted. qlty respects `.gitignore`, and the
+   JSON, JS, XML, and HTML workflows go further by feeding only `git ls-files`
+   output (tracked files) to their tool — so build output, dependencies, and
+   machine-managed files stay out without needing a pattern.
+2. **qlty `exclude_patterns`.** Tracked files matching these are skipped by every
+   qlty-driven plugin:
+
 ```
 **/*.min.*   **/*.pack.*   **/*.custom.*   **/_libs/**
 **/vendor/** **/node_modules/** **/dist/** **/build/**
 **/out/**    **/coverage/**     **/__pycache__/** **/.pytest_cache/**
 ```
+
+`xmllint` and `html-validate` run outside qlty, so they obey git tracking only —
+the patterns above do **not** apply to XML or HTML. To drop an XML or HTML file
+from CI, add it to `.gitignore`.
