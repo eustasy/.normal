@@ -15,7 +15,7 @@ chmod 755 install.sh &&
 rm install.sh &&
 rm -Rf .normal
 git add -A
-git commit -m "Install eustasy/.Normal 4.0beta8"
+git commit -m "Install eustasy/.Normal 4.0beta9"
 git push
 ```
 
@@ -86,7 +86,7 @@ chmod 755 install.sh &&
 rm install.sh &&
 rm -Rf .normal;
 git add -A;
-git commit -m "Migrate to eustasy/.Normal 4.0beta8 (Qlty)";
+git commit -m "Migrate to eustasy/.Normal 4.0beta9 (Qlty)";
 git push
 ```
 
