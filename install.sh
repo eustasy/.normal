@@ -31,9 +31,13 @@ cp -R ".normal/configs/.qlty/configs/." ".qlty/configs/"
 # so files .normal never lints aren't counted (a repo whose only JSON is
 # composer.json reports 0 .json files). ./install.sh is skipped too: the documented
 # "clone and run" copies this installer to the repo root, and it must not count
-# itself as a shell script and pull in sh.yml.
+# itself as a shell script and pull in sh.yml. phpunit.xml is skipped as well: it's
+# a PHPUnit test-runner config, not the kind of XML content xml.yml exists to lint,
+# so a PHP repo whose only .xml file is phpunit.xml gets no xml workflow. (The more
+# commonly committed phpunit.xml.dist already fails the *.xml glob, so it needs no
+# skip here.)
 count_files() {
-  find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name .venv -o -name _libs \) -prune -o -type f -name "$1" ! -path './install.sh' ! -name composer.json ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print 2>/dev/null | wc -l
+  find . -type d \( -name .git -o -name .github -o -name .normal -o -name .qlty -o -name .vscode -o -name .claude -o -name node_modules -o -name vendor -o -name dist -o -name build -o -name out -o -name coverage -o -name __pycache__ -o -name .pytest_cache -o -name .venv -o -name _libs \) -prune -o -type f -name "$1" ! -path './install.sh' ! -name composer.json ! -name phpunit.xml ! -name '*.min.*' ! -name '*.pack.*' ! -name '*.custom.*' -print 2>/dev/null | wc -l
 }
 
 # Install a workflow only if matching files exist, reporting the count either way
