@@ -51,7 +51,6 @@ git push
 | html-validate | HTML | Yes | — |
 | xmllint | XML | Yes | — |
 | ruff | Python | Yes | Yes |
-| bandit | Python | Yes | — |
 | phpstan | PHP | Yes | — |
 | php-cs-fixer | PHP | — | Yes |
 | sqlfluff | SQL | Yes | Yes |
