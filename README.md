@@ -29,6 +29,7 @@ git push
 | `.qlty/configs/oxlint.json` | JS/TS linter (OXC) |
 | `.qlty/configs/.stylelintrc.json` | CSS/SCSS linter |
 | `.qlty/configs/.markdownlint.jsonc` | Markdown linter |
+| `.qlty/configs/.htmlvalidate.json` | HTML linter (void-style: selfclosing) |
 | `.qlty/configs/ruff.toml` | Python lint + format |
 | `.qlty/configs/.php-cs-fixer.php` | PHP formatter |
 | `.qlty/configs/.sqlfluff` | SQL lint + format (default dialect: mysql) |
