@@ -5,10 +5,18 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.md"]
+    paths:
+      - "**.md"
+      - ".github/workflows/md.yml"
+      - ".qlty/configs/.markdownlint.json"
+      - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
-    paths: ["**.md"]
+    paths:
+      - "**.md"
+      - ".github/workflows/md.yml"
+      - ".qlty/configs/.markdownlint.json"
+      - ".qlty/qlty.toml"
 
 permissions:
   contents: read

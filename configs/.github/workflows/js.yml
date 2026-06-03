@@ -5,10 +5,30 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.js", "**.ts", "**.mjs", "**.cjs", "**.mts", "**.cts"]
+    paths:
+      - "**.js"
+      - "**.ts"
+      - "**.mjs"
+      - "**.cjs"
+      - "**.mts"
+      - "**.cts"
+      - ".github/workflows/js.yml"
+      - ".qlty/configs/oxlint.json"
+      - ".qlty/configs/.prettierrc.json"
+      - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
-    paths: ["**.js", "**.ts", "**.mjs", "**.cjs", "**.mts", "**.cts"]
+    paths:
+      - "**.js"
+      - "**.ts"
+      - "**.mjs"
+      - "**.cjs"
+      - "**.mts"
+      - "**.cts"
+      - ".github/workflows/js.yml"
+      - ".qlty/configs/oxlint.json"
+      - ".qlty/configs/.prettierrc.json"
+      - ".qlty/qlty.toml"
 
 permissions:
   contents: read

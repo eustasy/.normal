@@ -5,10 +5,16 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.yml", "**.yaml"]
+    paths:
+      - "**.yml"
+      - "**.yaml"
+      - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
-    paths: ["**.yml", "**.yaml"]
+    paths:
+      - "**.yml"
+      - "**.yaml"
+      - ".qlty/qlty.toml"
 
 permissions:
   contents: read

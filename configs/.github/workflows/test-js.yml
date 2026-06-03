@@ -5,10 +5,30 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.js", "**.ts", "**.mjs", "**.cjs", "**.mts", "**.cts"]
+    paths:
+      - "**.js"
+      - "**.ts"
+      - "**.mjs"
+      - "**.cjs"
+      - "**.mts"
+      - "**.cts"
+      - "tests/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/test-js.yml"
   pull_request:
     branches: [main]
-    paths: ["**.js", "**.ts", "**.mjs", "**.cjs", "**.mts", "**.cts"]
+    paths:
+      - "**.js"
+      - "**.ts"
+      - "**.mjs"
+      - "**.cjs"
+      - "**.mts"
+      - "**.cts"
+      - "tests/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/test-js.yml"
 
 permissions:
   contents: read

@@ -5,10 +5,20 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.css", "**.scss"]
+    paths:
+      - "**.css"
+      - "**.scss"
+      - ".github/workflows/css.yml"
+      - ".qlty/configs/.stylelintrc.json"
+      - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
-    paths: ["**.css", "**.scss"]
+    paths:
+      - "**.css"
+      - "**.scss"
+      - ".github/workflows/css.yml"
+      - ".qlty/configs/.stylelintrc.json"
+      - ".qlty/qlty.toml"
 
 permissions:
   contents: read

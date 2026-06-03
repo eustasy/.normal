@@ -5,10 +5,18 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.sql"]
+    paths:
+      - "**.sql"
+      - ".github/workflows/sql.yml"
+      - ".qlty/configs/.sqlfluff"
+      - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
-    paths: ["**.sql"]
+    paths:
+      - "**.sql"
+      - ".github/workflows/sql.yml"
+      - ".qlty/configs/.sqlfluff"
+      - ".qlty/qlty.toml"
 
 permissions:
   contents: read

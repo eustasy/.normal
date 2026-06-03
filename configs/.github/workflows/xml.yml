@@ -5,10 +5,14 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.xml"]
+    paths:
+      - "**.xml"
+      - ".github/workflows/xml.yml"
   pull_request:
     branches: [main]
-    paths: ["**.xml"]
+    paths:
+      - "**.xml"
+      - ".github/workflows/xml.yml"
 
 permissions:
   contents: read

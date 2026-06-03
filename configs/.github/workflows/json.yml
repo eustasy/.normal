@@ -5,10 +5,16 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.json"]
+    paths:
+      - "**.json"
+      - ".github/workflows/json.yml"
+      - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
-    paths: ["**.json"]
+    paths:
+      - "**.json"
+      - ".github/workflows/json.yml"
+      - ".qlty/qlty.toml"
 
 permissions:
   contents: read

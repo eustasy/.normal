@@ -5,10 +5,26 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.py"]
+    paths:
+      - "**.py"
+      - "tests/**"
+      - "requirements.txt"
+      - "pyproject.toml"
+      - "pytest.ini"
+      - "setup.cfg"
+      - "tox.ini"
+      - ".github/workflows/test-python.yml"
   pull_request:
     branches: [main]
-    paths: ["**.py"]
+    paths:
+      - "**.py"
+      - "tests/**"
+      - "requirements.txt"
+      - "pyproject.toml"
+      - "pytest.ini"
+      - "setup.cfg"
+      - "tox.ini"
+      - ".github/workflows/test-python.yml"
 
 permissions:
   contents: read

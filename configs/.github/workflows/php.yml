@@ -5,10 +5,16 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["**.php"]
+    paths:
+      - "**.php"
+      - ".github/workflows/php.yml"
+      - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
-    paths: ["**.php"]
+    paths:
+      - "**.php"
+      - ".github/workflows/php.yml"
+      - ".qlty/qlty.toml"
 
 permissions:
   contents: read
