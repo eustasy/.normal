@@ -6,7 +6,12 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    # For github-actions Dependabot appends ".github/workflows" to each entry,
+    # so "/" covers this repo's own workflows and "/configs" covers the
+    # deployable template workflows under configs/.github/workflows.
+    directories:
+      - "/"
+      - "/configs"
     schedule:
       interval: "daily"
     groups:
