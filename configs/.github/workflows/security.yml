@@ -1,5 +1,5 @@
 # eustasy/.Normal 4.0beta10
-name: Normal (Security)
+name: Normal: Security
 
 on:
   workflow_dispatch:

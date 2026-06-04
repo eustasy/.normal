@@ -1,5 +1,5 @@
 # eustasy/.Normal 4.0beta10
-name: Normal (CSS/SCSS)
+name: Normal: CSS/SCSS
 
 on:
   workflow_dispatch:

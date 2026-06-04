@@ -1,5 +1,5 @@
 # eustasy/.Normal 4.0beta10
-name: Normal (XML)
+name: Normal: XML
 
 on:
   workflow_dispatch:
