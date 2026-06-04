@@ -1,5 +1,5 @@
 # eustasy/.Normal 4.0beta10
-name: Normal: JavaScript / TypeScript
+name: Normal: JS / TS
 
 on:
   workflow_dispatch:

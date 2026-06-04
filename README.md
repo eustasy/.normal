@@ -39,6 +39,19 @@ git push
 | `.github/workflows/{language}.yml` | Per-language lint + format CI |
 | `.github/workflows/test-{language}.yml` | Test + coverage CI (activate by removing `if: false`) |
 
+### Default Branch
+
+The CI workflows trigger on pushes and pull requests to `main`. **If your repository's
+default branch is not `main`, the workflows will never run until you update them.**
+GitHub Actions does not allow referencing the default branch dynamically in the `on:`
+trigger, so the branch name must be set explicitly. After running `install.sh`, replace
+`main` in the `branches:` filters across `.github/workflows/*.yml`:
+
+```bash
+# example: default branch is `trunk`
+sed -i 's/branches: \[main\]/branches: [trunk]/' .github/workflows/*.yml
+```
+
 ### Plugins
 
 | Plugin | Language | Lint | Format |
