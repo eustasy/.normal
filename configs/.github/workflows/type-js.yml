@@ -1,5 +1,5 @@
 # eustasy/.Normal 4.0beta10
-name: "Test: JS / TS"
+name: "Type: TS"
 on:
   workflow_dispatch:
   push:
@@ -11,10 +11,10 @@ on:
       - "**.cjs"
       - "**.mts"
       - "**.cts"
-      - "tests/**"
+      - "tsconfig.json"
       - "package.json"
       - "package-lock.json"
-      - ".github/workflows/test-js.yml"
+      - ".github/workflows/type-js.yml"
   pull_request:
     branches: [main]
     paths:
@@ -24,19 +24,19 @@ on:
       - "**.cjs"
       - "**.mts"
       - "**.cts"
-      - "tests/**"
+      - "tsconfig.json"
       - "package.json"
       - "package-lock.json"
-      - ".github/workflows/test-js.yml"
+      - ".github/workflows/type-js.yml"
 
 permissions:
   contents: read
 
 jobs:
-  test-js:
+  type-js:
     # Remove the `if: false` below to activate this workflow.
     if: false
-    name: Vitest + coverage
+    name: tsc --noEmit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -51,11 +51,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Vitest with coverage
-        run: npx vitest run --coverage
-
-      - name: Upload coverage to Qlty
-        uses: qltysh/qlty-action/coverage@fd52dc852530a708d68c3b7342f8d33d1df4cd55 # v2.2.1
-        with:
-          coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          files: coverage/lcov.info
+      - name: Typecheck (tsc)
+        run: npx tsc --noEmit

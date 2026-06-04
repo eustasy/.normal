@@ -1,6 +1,5 @@
 # eustasy/.Normal 4.0beta10
-name: Normal: SQL
-
+name: "Normal: SQL"
 on:
   workflow_dispatch:
   push:

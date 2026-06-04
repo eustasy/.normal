@@ -1,6 +1,5 @@
 # eustasy/.Normal 4.0beta10
-name: Normal: JSON
-
+name: "Normal: JSON"
 on:
   workflow_dispatch:
   push:

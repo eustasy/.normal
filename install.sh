@@ -60,7 +60,7 @@ copy_workflow() {
 # Remove .normal-managed workflows before re-checking, so updating .normal drops
 # any whose file types are no longer present (or are now excluded). Workflows the
 # project added itself are left untouched.
-for wf in security css env html js json md php python sh sql test-js test-php test-python xml yaml; do
+for wf in security css env html js json md php python sh sql test-js test-php test-python type-js type-python xml yaml; do
   rm -f ".github/workflows/${wf}.yml"
 done
 
@@ -176,5 +176,7 @@ copy_workflow sql        "*.sql"
 copy_workflow test-js    "*.js" "*.ts" "*.mjs" "*.cjs" "*.mts" "*.cts"
 copy_workflow test-php   "*.php"
 copy_workflow test-python "*.py"
+copy_workflow type-js    "*.ts" "*.mts" "*.cts"
+copy_workflow type-python "*.py"
 copy_workflow xml        "*.xml"
 copy_workflow yaml       "*.yml" "*.yaml"

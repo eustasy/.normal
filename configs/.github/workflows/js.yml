@@ -1,6 +1,5 @@
 # eustasy/.Normal 4.0beta10
-name: Normal: JS / TS
-
+name: "Normal: JS / TS"
 on:
   workflow_dispatch:
   push:

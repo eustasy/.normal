@@ -38,6 +38,7 @@ git push
 | `.github/workflows/security.yml` | Security scanning (every push) |
 | `.github/workflows/{language}.yml` | Per-language lint + format CI |
 | `.github/workflows/test-{language}.yml` | Test + coverage CI (activate by removing `if: false`) |
+| `.github/workflows/type-{language}.yml` | Typecheck CI — TS (tsc), Python (mypy) (activate by removing `if: false`) |
 
 ### Default Branch
 
@@ -107,7 +108,7 @@ Then:
 
 1. Connect the repo on [qlty.sh](https://qlty.sh) (replaces Code Climate)
 2. Add `QLTY_COVERAGE_TOKEN` to repo secrets (Settings → Secrets → Actions)
-3. Remove the `if: false` guard from whichever test workflows apply to the repo
+3. Remove the `if: false` guard from whichever test/typecheck workflows apply to the repo
 
 `install.sh` will automatically delete the old `.codeclimate.yml`, `.eslintrc.json`,
 `.stylelintrc.json`, `.mdlrc`, and related files.
