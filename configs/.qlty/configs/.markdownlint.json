@@ -21,5 +21,8 @@
   "MD033": false,
 
   // MD041 — first line h1: not required (excluded in old .mdlrc.style.rb)
-  "MD041": false
+  "MD041": false,
+
+  // MD055 — table pipe style: require leading + trailing pipes on every row
+  "MD055": { "style": "leading_and_trailing" }
 }
