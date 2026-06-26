@@ -13,7 +13,7 @@ updates:
       - "/"
       - "/configs"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     groups:
       gha-patching:
         update-types:
