@@ -11,7 +11,7 @@ updates:
     # deployable template workflows under configs/.github/workflows.
     directories:
       - "/"
-      - "/configs"
+      - "/configs/.github/workflows/"
     schedule:
       interval: "daily"
     groups:
