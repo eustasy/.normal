@@ -29,7 +29,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: qltysh/qlty-action/install@dafbc1e328f1f92525f1a3916724bd5fa01498e8 # v2.2.3
+      - uses: qltysh/qlty-action/install@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
 
       - name: Lint + format check (markdownlint)
         run: qlty check --all --filter=markdownlint
