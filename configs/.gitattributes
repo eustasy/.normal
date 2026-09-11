@@ -1,6 +1,9 @@
-# eustasy/.Normal's own copy of configs/.gitattributes, so this repo is subject
-# to the same normalization it ships. Edit configs/.gitattributes and mirror the
-# change here (that file is what install.sh deploys).
+# eustasy/.Normal — line-ending normalization, deployed to a project root by
+# install.sh. Companion to `end_of_line = lf` in .editorconfig.
+#
+# Safe to extend: add project-specific rules (Git LFS `filter=lfs`,
+# `linguist-generated`, custom merge drivers) below. install.sh never overwrites
+# this file once it exists, so local additions survive a .Normal upgrade.
 #
 # Normalize line endings. Mirrors `end_of_line = lf` in .editorconfig so the
 # tree stays LF in the repo and on checkout, even when edited on Windows/WSL.

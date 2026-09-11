@@ -24,16 +24,18 @@ git push
 | File | Purpose |
 |------|---------|
 | `.editorconfig` | Universal editor settings (indent, line length) |
+| `.gitattributes` | LF line-ending normalization (**only if absent** — see below) |
 | `.vscode/settings.json` | Format-on-save + recommended extensions |
 | `.qlty/qlty.toml` | Qlty orchestration: plugins, smells, exclusions |
 | `.qlty/configs/oxlint.json` | JS/TS linter (OXC) |
 | `.qlty/configs/.stylelintrc.json` | CSS/SCSS linter |
-| `.qlty/configs/.markdownlint.jsonc` | Markdown linter |
+| `.qlty/configs/.markdownlint.json` | Markdown linter |
 | `.qlty/configs/.htmlvalidate.json` | HTML linter (void-style: selfclosing) |
 | `.qlty/configs/ruff.toml` | Python lint + format |
-| `.qlty/configs/.php-cs-fixer.php` | PHP formatter |
+| `.qlty/configs/.php-cs-fixer.dist.php` | PHP formatter |
 | `.qlty/configs/.sqlfluff` | SQL lint + format (default dialect: mysql) |
 | `.qlty/configs/.prettierrc.json` | Prettier config (JS/TS, JSON) |
+| `.qlty/configs/.shellcheckrc` | Shell linter (source resolution; dialect from shebangs) |
 | `.github/dependabot.yml` | Automated dependency updates (only ecosystems whose manifests are present) |
 | `.github/workflows/security.yml` | Security scanning (every push) |
 | `.github/workflows/{language}.yml` | Per-language lint + format CI |
@@ -77,6 +79,69 @@ sed -i 's/branches: \[main\]/branches: [trunk]/' .github/workflows/*.yml
 | gitleaks | All | Yes | — |
 | trivy | All | Yes | — |
 | osv-scanner | All | Yes | — |
+
+### Line Endings
+
+`.gitattributes` pins the tree to LF (`* text=auto eol=lf`), the companion to
+`.editorconfig`'s `end_of_line = lf`. Together they stop the CRLF↔LF churn that
+otherwise shows up as whole-file diffs on unchanged files when a repo is edited
+from both Windows and WSL/Linux.
+
+Unlike every other file `install.sh` deploys, **`.gitattributes` is installed only
+when the project doesn't already have one.** It commonly carries project-specific
+rules `.Normal` can't reconstruct — Git LFS `filter=lfs` lines,
+`linguist-generated`/`linguist-vendored` overrides, custom merge drivers — and
+overwriting those breaks LFS checkouts. If you already have one, `install.sh` says
+so and leaves it alone; merge in the rules from
+[`configs/.gitattributes`](https://github.com/eustasy/.normal/blob/main/configs/.gitattributes)
+by hand.
+
+If the repo already has CRLF committed, installing the file changes nothing on its
+own. Normalize the tree once:
+
+```bash
+git add --renormalize .
+git commit -m "Normalize line endings to LF"
+```
+
+### Shell Indentation
+
+Shell scripts are formatted by **shfmt at 2 spaces**, pinned on the command line in
+`.qlty/qlty.toml`:
+
+```toml
+[plugins.definitions.shfmt.drivers.format]
+script = "shfmt -w -s -i 2 ${target}"
+```
+
+shfmt has no config file of its own. qlty's built-in driver passes no indentation
+flag, so shfmt discovers `.editorconfig` at format time and falls back to its own
+default — **tabs** — when it finds none. That is what made shell indentation flip
+between tabs and spaces from machine to machine, and extensionless scripts never
+matched an `.editorconfig` glob in the first place. Any formatting flag disables
+shfmt's `.editorconfig` lookup, so `-i 2` both pins the width and removes the
+discovery step.
+
+`.editorconfig` carries the same value in `[*.{sh,bash,ksh,zsh,bats}]` for editors.
+**Change both or neither** — they are not read by the same tool. To use 4 spaces
+instead, set `-i 4` in `.qlty/qlty.toml` and `indent_size`/`tab_width` to `4` in
+`.editorconfig`. Tabs are `-i 0` plus `indent_style = tab`.
+
+VS Code deliberately has `"[shellscript]": { "editor.formatOnSave": false }` so an
+ad-hoc shell-format extension on one machine can't reindent on save and fight CI.
+Run `qlty fmt` to apply the real formatting.
+
+### ShellCheck
+
+`.qlty/configs/.shellcheckrc` sets `external-sources=true` and
+`source-path=SCRIPTDIR` so `source`d files are followed and resolved against the
+sourcing script rather than the caller's working directory. It deliberately does
+**not** set `shell=`: that directive overrides every shebang in the repo and would
+lint `#!/bin/sh` scripts as bash, hiding real portability bugs. Give shebang-less
+fragments a per-file `# shellcheck shell=bash` directive instead.
+
+ShellCheck never rewrites files — it has no say in indentation. See Shell
+Indentation above.
 
 ### SQL Dialect
 

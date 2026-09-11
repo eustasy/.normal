@@ -19,6 +19,24 @@ mkdir -p .qlty/configs .github/workflows .vscode
 cp .normal/configs/.editorconfig         .editorconfig
 cp .normal/configs/.vscode/settings.json .vscode/settings.json
 
+# .gitattributes: line-ending normalization, the companion to .editorconfig's
+# `end_of_line = lf`. Installed ONLY when absent, unlike everything else here.
+# .gitattributes is commonly project-specific in ways .normal cannot reconstruct
+# — Git LFS `filter=lfs` lines, `linguist-generated`/`linguist-vendored`
+# overrides, custom merge drivers — and overwriting those breaks LFS checkouts.
+# An existing file is left untouched and reported so a human can merge by hand.
+if [ -e .gitattributes ]; then
+  echo "Found existing .gitattributes; leaving it untouched (it may carry LFS or linguist rules)."
+  echo "  To adopt .Normal's LF normalization, merge the rules from:"
+  echo "    .normal/configs/.gitattributes"
+  echo "    (also at https://github.com/eustasy/.normal/blob/main/configs/.gitattributes)"
+else
+  cp .normal/configs/.gitattributes .gitattributes
+  echo "Installed .gitattributes (LF normalization)."
+  echo "  If this repo has CRLF committed, normalize the tree once with:"
+  echo "    git add --renormalize . && git commit -m 'Normalize line endings to LF'"
+fi
+
 # 4. Qlty config + all linter/formatter configs
 cp .normal/configs/.qlty/qlty.toml   .qlty/qlty.toml
 cp -R ".normal/configs/.qlty/configs/." ".qlty/configs/"
