@@ -219,6 +219,11 @@ EOF
   if [ "$pip" = 1 ];          then ecosystem_block pip allow;      fi
 } > .github/dependabot.yml
 
+# zizmor policy. Required by every caller workflow, which references .Normal's
+# actions by moving tag rather than by hash; see configs/.github/zizmor.yml.
+cp .normal/configs/.github/zizmor.yml .github/zizmor.yml
+echo "Installed zizmor policy (eustasy/* ref-pin)."
+
 # Security workflow always runs regardless of file types present.
 install_workflow security
 echo "Installed security workflow (always)."

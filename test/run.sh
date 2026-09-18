@@ -90,6 +90,9 @@ assert_file_contains "$MAIN/.github/workflows/security.yml" "branches: [main]" \
   "security.yml targets main"
 assert_file_exists "$MAIN/.qlty/qlty.toml" "installs qlty.toml"
 assert_file_exists "$MAIN/.github/dependabot.yml" "installs dependabot.yml"
+assert_file_exists "$MAIN/.github/zizmor.yml" "installs zizmor.yml"
+assert_file_contains "$MAIN/.github/zizmor.yml" "eustasy/*: ref-pin" \
+  "zizmor.yml exempts the eustasy namespace"
 
 printf '\n== scenario: default branch cf-pages ==\n'
 CF=$(install_into cf cf-pages)
