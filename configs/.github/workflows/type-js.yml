@@ -43,13 +43,9 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v7
-        with:
-          node-version: lts/*
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
+      - uses: eustasy/.normal/js/setup@v4
 
       - name: Typecheck (tsc)
+        # Replace with your own script if the project wraps tsc, for example
+        # `npm run typecheck`.
         run: npx tsc --noEmit

@@ -43,19 +43,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-python@v7
+      - uses: eustasy/.normal/python/setup@v4
         with:
           python-version: ${{ matrix.python-version }}
+          install-command: pip install -r requirements.txt
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      # Insert project-specific steps here — fixtures, config files, migrations.
 
-      - name: Run pytest with coverage
-        run: pytest --cov --cov-report=xml:coverage/cobertura.xml
-
-      - name: Upload coverage to Qlty
-        if: matrix.python-version == '3.13'
-        uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+      - uses: eustasy/.normal/python/test@v4
         with:
           coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          files: coverage/cobertura.xml
+          upload: ${{ matrix.python-version == '3.13' }}

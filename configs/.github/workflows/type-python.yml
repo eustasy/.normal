@@ -35,14 +35,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-python@v7
+      - uses: eustasy/.normal/python/setup@v4
         with:
           python-version: "3.13"
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install mypy
+          install-command: pip install -r requirements.txt && pip install mypy
 
       - name: Typecheck (mypy)
         run: mypy .

@@ -106,6 +106,18 @@ for wf in security css env html js json md php python sh sql \
 done
 assert_file_contains "$MAIN/.github/workflows/security.yml" "branches: [main]" \
   "security.yml targets main"
+for wf in security css env html js json md php python sh sql xml yaml; do
+  assert_file_contains "$MAIN/.github/workflows/$wf.yml" \
+    "uses: eustasy/.normal/$wf@v4" "$wf.yml calls the $wf action"
+done
+assert_file_contains "$MAIN/.github/workflows/test-php.yml" \
+  "uses: eustasy/.normal/php/setup@v4" "test-php.yml calls php/setup"
+assert_file_contains "$MAIN/.github/workflows/test-php.yml" \
+  "uses: eustasy/.normal/php/test@v4" "test-php.yml calls php/test"
+assert_file_contains "$MAIN/.github/workflows/type-js.yml" \
+  "uses: eustasy/.normal/js/setup@v4" "type-js.yml calls js/setup"
+assert_file_contains "$MAIN/.github/workflows/type-js.yml" \
+  "run: npx tsc --noEmit" "type-js.yml runs tsc directly"
 assert_file_exists "$MAIN/.qlty/qlty.toml" "installs qlty.toml"
 assert_file_exists "$MAIN/.github/dependabot.yml" "installs dependabot.yml"
 assert_file_exists "$MAIN/.github/zizmor.yml" "installs zizmor.yml"

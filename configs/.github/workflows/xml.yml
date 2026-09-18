@@ -25,8 +25,4 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install xmllint
-        run: sudo apt-get install -y libxml2-utils
-
-      - name: Lint XML (xmllint)
-        run: git ls-files -- '*.xml' | xargs -r xmllint --noout
+      - uses: eustasy/.normal/xml@v4
