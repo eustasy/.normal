@@ -44,9 +44,18 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: lts/*
-          cache: npm
+          # setup-node's `cache: npm` hard-fails with "Dependencies lock file is
+          # not found" when the repo root has no lockfile, which is the normal
+          # state for a repo that only *lints* JS and installs nothing. An empty
+          # string disables caching instead of erroring. The three names mirror
+          # setup-node's own npm lockFilePatterns, and are root-only because its
+          # findLockFile only reads the workspace root.
+          cache: ${{ hashFiles('package-lock.json', 'npm-shrinkwrap.json', 'yarn.lock') != '' && 'npm' || '' }}
 
       - name: Install dependencies
+        # Narrower than the cache gate above: `npm ci` needs an npm lockfile
+        # specifically, so a yarn.lock-only repo must not reach it.
+        if: hashFiles('package-lock.json', 'npm-shrinkwrap.json') != ''
         run: npm ci
 
       - uses: qltysh/qlty-action/install@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
