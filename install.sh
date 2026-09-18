@@ -224,6 +224,9 @@ EOF
 cp .normal/configs/.github/zizmor.yml .github/zizmor.yml
 echo "Installed zizmor policy (eustasy/* ref-pin)."
 
+cp .normal/configs/.github/actionlint.yaml .github/actionlint.yaml
+echo "Installed actionlint config."
+
 # Security workflow always runs regardless of file types present.
 install_workflow security
 echo "Installed security workflow (always)."
