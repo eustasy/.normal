@@ -1,0 +1,23 @@
+name: Normal Setup Node
+description: Set up Node.js, caching and installing npm dependencies only when a lockfile is present.
+
+inputs:
+  node-version:
+    description: Node.js version passed to actions/setup-node.
+    default: lts/*
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      with:
+        node-version: ${{ inputs.node-version }}
+        # `cache: npm` hard-fails when the root has no lockfile; empty disables it.
+        # Root-only because setup-node's findLockFile only reads the workspace root.
+        cache: ${{ hashFiles('package-lock.json', 'npm-shrinkwrap.json', 'yarn.lock') != '' && 'npm' || '' }}
+
+    - name: Install dependencies
+      # Narrower than the cache gate: yarn.lock alone must not reach `npm ci`.
+      if: hashFiles('package-lock.json', 'npm-shrinkwrap.json') != ''
+      shell: bash
+      run: npm ci

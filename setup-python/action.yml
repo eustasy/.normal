@@ -1,0 +1,29 @@
+name: Normal Setup Python
+description: Set up Python and optionally install dependencies.
+
+inputs:
+  python-version:
+    description: Python version passed to actions/setup-python.
+    required: true
+  install-command:
+    description: >-
+      Shell command that installs dependencies, for example
+      "pip install -r requirements.txt". Empty (the default) installs nothing,
+      which is what the lint workflow wants.
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v7
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install dependencies
+      if: inputs.install-command != ''
+      shell: bash
+      # Via env, not interpolated: zizmor flags `run: ${{ inputs.* }}` as
+      # template-injection. `-eo pipefail` keeps a `shell: bash` step's semantics.
+      env:
+        NORMAL_INSTALL_COMMAND: ${{ inputs.install-command }}
+      run: bash -eo pipefail -c "$NORMAL_INSTALL_COMMAND"

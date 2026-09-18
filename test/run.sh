@@ -139,5 +139,17 @@ else
   printf '  skip zizmor (not on PATH)\n'
 fi
 
+printf '\n== actions: zizmor ==\n'
+zizmor_bin=$(find_tool zizmor)
+if [ -n "$zizmor_bin" ]; then
+  if "$zizmor_bin" --no-progress --offline "$ROOT"/*/action.yml >"$WORK/actions.log" 2>&1; then
+    pass "zizmor clean on all actions"
+  else
+    fail "zizmor reported findings on actions (see $WORK/actions.log)"
+  fi
+else
+  printf '  skip zizmor on actions (not on PATH)\n'
+fi
+
 printf '\n%s checks, %s failures\n' "$CHECKS" "$FAILURES"
 [ "$FAILURES" -eq 0 ]
