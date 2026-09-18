@@ -37,6 +37,8 @@ git push
 | `.qlty/configs/.prettierrc.json` | Prettier config (JS/TS, JSON) |
 | `.qlty/configs/.shellcheckrc` | Shell linter (source resolution; dialect from shebangs) |
 | `.github/dependabot.yml` | Automated dependency updates (only ecosystems whose manifests are present) |
+| `.github/zizmor.yml` | zizmor policy granting `eustasy/*` a ref-pin exemption |
+| `.github/actionlint.yaml` | actionlint config; scopes the `if: false` deactivation pattern out of `if-cond` |
 | `.github/workflows/security.yml` | Security scanning (every push) |
 | `.github/workflows/{language}.yml` | Per-language lint + format CI |
 | `.github/workflows/test-{language}.yml` | Test + coverage CI (activate by removing `if: false`) |
@@ -72,6 +74,40 @@ NORMAL_DEFAULT_BRANCH=trunk ./install.sh
 
 `git remote set-head origin --auto` refreshes a stale `origin/HEAD` if you would
 rather fix the cause.
+
+### Customising a workflow
+
+The deployed workflows are thin callers. The linting logic lives in composite
+actions in this repository, referenced by the moving `v4` tag, so a fix reaches
+every project as soon as the tag moves.
+
+Anything a project needs to vary lives in the caller: the trigger and its path
+filters, `runs-on`, the language matrix, service containers, and any extra steps.
+
+Each language with a toolchain publishes three actions — `<language>/setup`,
+`<language>/lint` and `<language>/test`. The flat `<language>` action runs setup
+and lint in sequence, which is what the lint workflows call. Reach for the parts
+when a job needs something in between. The `test-*` workflows already do, so
+project-specific steps can sit between setup and the test run:
+
+```yaml
+      - uses: eustasy/.normal/php/setup@v4
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
+
+      - name: Load database fixtures
+        run: ./scripts/seed-test-db.sh
+
+      - uses: eustasy/.normal/php/test@v4
+        with:
+          coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+```
+
+Because the actions are referenced by tag rather than by commit hash, every
+project also receives `.github/zizmor.yml`, which grants the `eustasy`
+namespace a `ref-pin` exemption. Without it zizmor fails each caller at high
+severity. Everything else keeps zizmor's stricter hash-pinning default.
 
 ### Plugins
 
