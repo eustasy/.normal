@@ -1,0 +1,18 @@
+name: Normal HTML
+description: Validate HTML with html-validate.
+
+inputs:
+  node-version:
+    description: Node.js version passed to actions/setup-node.
+    default: lts/*
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Lint HTML (html-validate)
+      shell: bash
+      run: git ls-files -- '*.html' '*.htm' | xargs -r npx --yes html-validate --config .qlty/configs/.htmlvalidate.json

@@ -1,0 +1,13 @@
+name: Normal XML
+description: Validate XML well-formedness with xmllint.
+
+runs:
+  using: composite
+  steps:
+    - name: Install xmllint
+      shell: bash
+      run: sudo apt-get install -y libxml2-utils
+
+    - name: Lint XML (xmllint)
+      shell: bash
+      run: git ls-files -- '*.xml' | xargs -r xmllint --noout
