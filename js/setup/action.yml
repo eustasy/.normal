@@ -1,4 +1,4 @@
-name: Normal Setup Node
+name: Normal JavaScript Setup
 description: Set up Node.js, caching and installing npm dependencies only when a lockfile is present.
 
 inputs:

@@ -1,4 +1,4 @@
-name: Normal Test PHP
+name: Normal PHP Test
 description: Run the PHP test suite and upload coverage to Qlty.
 
 inputs:

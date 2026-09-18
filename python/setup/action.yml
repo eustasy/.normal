@@ -1,4 +1,4 @@
-name: Normal Setup Python
+name: Normal Python Setup
 description: Set up Python and optionally install dependencies.
 
 inputs:

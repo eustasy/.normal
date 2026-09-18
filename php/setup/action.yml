@@ -1,4 +1,4 @@
-name: Normal Setup PHP
+name: Normal PHP Setup
 description: Set up PHP and install Composer dependencies when a manifest is present.
 
 inputs:

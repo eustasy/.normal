@@ -1,4 +1,4 @@
-name: Normal Test JavaScript
+name: Normal JavaScript Test
 description: Run the JS or TS test suite and upload coverage to Qlty.
 
 inputs:

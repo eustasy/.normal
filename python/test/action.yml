@@ -1,4 +1,4 @@
-name: Normal Test Python
+name: Normal Python Test
 description: Run the Python test suite and upload coverage to Qlty.
 
 inputs:
