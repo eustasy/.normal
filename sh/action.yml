@@ -1,0 +1,15 @@
+name: Normal Shell
+description: Lint shell with shellcheck and format-check it with shfmt.
+
+runs:
+  using: composite
+  steps:
+    - uses: qltysh/qlty-action/install@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+
+    - name: Lint (shellcheck)
+      shell: bash
+      run: qlty check --all --no-formatters --filter=shellcheck
+
+    - name: Format check (shfmt)
+      shell: bash
+      run: qlty check --all --filter=shfmt

@@ -1,0 +1,13 @@
+name: Normal Security
+description: Scan for secrets, vulnerable dependencies and known CVEs.
+
+runs:
+  using: composite
+  steps:
+    - uses: qltysh/qlty-action/install@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+
+    - name: Security scan
+      # gitleaks needs full history, so the caller must check out with
+      # fetch-depth: 0.
+      shell: bash
+      run: qlty check --all --no-formatters --filter=gitleaks,trivy,osv-scanner
