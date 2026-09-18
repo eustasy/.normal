@@ -27,7 +27,7 @@
   "MD049": { "style": "underscore" },
 
   // MD050 — strong style: asterisk, **bold**
-  "MD050": { "style": "asterisk" }
+  "MD050": { "style": "asterisk" },
 
   // MD055 — table pipe style: require leading + trailing pipes on every row
   "MD055": { "style": "leading_and_trailing" }

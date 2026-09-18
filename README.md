@@ -44,16 +44,34 @@ git push
 
 ### Default Branch
 
-The CI workflows trigger on pushes and pull requests to `main`. **If your repository's
-default branch is not `main`, the workflows will never run until you update them.**
-GitHub Actions does not allow referencing the default branch dynamically in the `on:`
-trigger, so the branch name must be set explicitly. After running `install.sh`, replace
-`main` in the `branches:` filters across `.github/workflows/*.yml`:
+The CI workflows trigger on pushes and pull requests to your default branch. GitHub
+Actions does not allow referencing the default branch dynamically in the `on:` trigger,
+so the branch name has to be written into every `branches:` filter — `install.sh` does
+this for you when it copies each workflow into place.
+
+It reports what it picked:
+
+```text
+Default branch for workflow triggers: cf-pages
+```
+
+Detection order, most explicit first:
+
+1. `NORMAL_DEFAULT_BRANCH`, if set.
+2. `origin`'s recorded HEAD — the remote's default branch.
+3. The branch currently checked out.
+4. `main`.
+
+Steps 2 and 3 cover a normal clone. Set the variable if the answer is wrong — most
+often because the clone's `origin/HEAD` is stale, or because the repo has no remote
+yet:
 
 ```bash
-# example: default branch is `trunk`
-sed -i 's/branches: \[main\]/branches: [trunk]/' .github/workflows/*.yml
+NORMAL_DEFAULT_BRANCH=trunk ./install.sh
 ```
+
+`git remote set-head origin --auto` refreshes a stale `origin/HEAD` if you would
+rather fix the cause.
 
 ### Plugins
 
