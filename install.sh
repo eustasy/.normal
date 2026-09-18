@@ -43,6 +43,48 @@ cp -R ".normal/configs/.qlty/configs/." ".qlty/configs/"
 
 # 5. GitHub workflows
 
+# Default branch. Every workflow template ships with `branches: [main]` on its
+# on.push / on.pull_request filters, because `on:` triggers cannot contain
+# expressions — there is no `${{ github.event.repository.default_branch }}` to
+# reach for. A repo whose default branch is anything else (e.g. cf-pages) would
+# therefore install workflows that never trigger, so the filters are rewritten
+# at install time.
+#
+# Detection order, most explicit first:
+#   1. NORMAL_DEFAULT_BRANCH=... ./install.sh   (override; also the escape hatch
+#      when the remote's HEAD is stale or the repo has no remote yet)
+#   2. origin's HEAD, which is the remote's default branch. Only present if the
+#      clone recorded it; refresh with `git remote set-head origin --auto`.
+#   3. the currently checked-out branch, which is what a fresh clone sits on.
+#   4. main.
+default_branch=${NORMAL_DEFAULT_BRANCH:-}
+if [ -z "$default_branch" ]; then
+  default_branch=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|^origin/||') || true
+fi
+if [ -z "$default_branch" ]; then
+  default_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || true
+fi
+# `git rev-parse --abbrev-ref HEAD` prints HEAD (not a branch name) on a detached
+# checkout, which is not a valid branch filter.
+case $default_branch in
+'' | HEAD) default_branch=main ;;
+esac
+echo "Default branch for workflow triggers: $default_branch"
+
+# Copy a workflow template into place, rewriting its branch filters when the
+# default branch is not main. sed -i is not portable (GNU wants no argument, BSD
+# wants an empty one), so write beside the file and move it into place.
+install_workflow() {
+  src=".normal/configs/.github/workflows/${1}.yml"
+  dest=".github/workflows/${1}.yml"
+  if [ "$default_branch" = main ]; then
+    cp "$src" "$dest"
+    return 0
+  fi
+  sed "s|^\([[:space:]]*branches: \)\[main\]\$|\1[${default_branch}]|" "$src" >"${dest}.tmp"
+  mv "${dest}.tmp" "$dest"
+}
+
 # Count non-excluded files matching a single name pattern. Both the pruned dirs
 # and the skipped file names mirror qlty.toml's excludes — tool dirs (.vscode,
 # .claude, .qlty), deps/build output, composer.json and min/pack/custom bundles —
@@ -69,7 +111,7 @@ copy_workflow() {
   done
   if [ "$count" -gt 0 ]; then
     echo "Found $count $wf file(s); installing $wf workflow."
-    cp ".normal/configs/.github/workflows/${wf}.yml" ".github/workflows/${wf}.yml"
+    install_workflow "$wf"
   else
     echo "Found 0 $wf file(s); skipping $wf workflow."
   fi
@@ -178,7 +220,7 @@ EOF
 } > .github/dependabot.yml
 
 # Security workflow always runs regardless of file types present.
-cp .normal/configs/.github/workflows/security.yml .github/workflows/security.yml
+install_workflow security
 echo "Installed security workflow (always)."
 
 copy_workflow css        "*.css" "*.scss"
