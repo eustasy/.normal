@@ -14,7 +14,7 @@ inputs:
     description: Command that runs the tests and writes coverage.
     default: pytest --cov --cov-report=xml:coverage/cobertura.xml
   files:
-    description: Coverage file to upload.
+    description: Coverage files to upload. Accepts more than one.
     default: coverage/cobertura.xml
   add-prefix:
     description: >-

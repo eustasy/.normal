@@ -1,0 +1,38 @@
+# eustasy/.Normal 4.0beta13
+name: "Normal: Release"
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  move-tags:
+    name: Move major and minor tags
+    runs-on: ubuntu-latest
+    steps:
+      # Credentials persist here on purpose: the push below needs them, which is
+      # what zizmor's artipacked flags.
+      - uses: actions/checkout@v7 # zizmor: ignore[artipacked]
+        with:
+          fetch-depth: 0
+
+      - name: Force-push v<major> and v<major>.<minor>
+        shell: bash
+        # Consumers reference eustasy/.normal/<action>@v4, so v4 has to follow
+        # each release. GitHub's guidance is to keep the minor tag current too.
+        # This only works while immutable releases is off for this repository;
+        # enabling it blocks force-pushing tags tied to a release.
+        env:
+          NORMAL_RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          major=$(printf '%s' "$NORMAL_RELEASE_TAG" | sed -n 's/^\([0-9]\{1,\}\)\..*/\1/p')
+          minor=$(printf '%s' "$NORMAL_RELEASE_TAG" | sed -n 's/^\([0-9]\{1,\}\.[0-9]\{1,\}\).*/\1/p')
+          if [ -z "$major" ] || [ -z "$minor" ]; then
+            echo "Tag $NORMAL_RELEASE_TAG is not <major>.<minor>...; not moving anything."
+            exit 0
+          fi
+          git tag -f "v$major"
+          git tag -f "v$minor"
+          git push -f origin "v$major" "v$minor"

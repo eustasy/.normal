@@ -14,7 +14,7 @@ inputs:
     description: Command that runs the tests and writes coverage.
     default: vendor/bin/phpunit --coverage-clover coverage/clover.xml
   files:
-    description: Coverage file to upload.
+    description: Coverage files to upload. Accepts more than one.
     default: coverage/clover.xml
 
 runs:

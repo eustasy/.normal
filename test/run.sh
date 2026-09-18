@@ -69,11 +69,15 @@ install_into() {
   dir="$WORK/$1"
   branch="$2"
   mkdir -p "$dir"
-  cp "$ROOT"/empty/test.* "$dir/" 2>/dev/null || true
-  cp "$ROOT"/empty/.env.example "$dir/" 2>/dev/null || true
-  printf '{\n  "name": "fixture"\n}\n' >"$dir/package.json"
-  printf '{\n  "name": "eustasy/fixture"\n}\n' >"$dir/composer.json"
-  printf '[project]\nname = "fixture"\n' >"$dir/pyproject.toml"
+  if [ "${3:-seeded}" = bare ]; then
+    printf '# fixture\n' >"$dir/README.md"
+  else
+    cp "$ROOT"/empty/test.* "$dir/" 2>/dev/null || true
+    cp "$ROOT"/empty/.env.example "$dir/" 2>/dev/null || true
+    printf '{\n  "name": "fixture"\n}\n' >"$dir/package.json"
+    printf '{\n  "name": "eustasy/fixture"\n}\n' >"$dir/composer.json"
+    printf '[project]\nname = "fixture"\n' >"$dir/pyproject.toml"
+  fi
   (
     cd "$dir"
     git init -q -b "$branch" .
@@ -133,6 +137,16 @@ CF=$(install_into cf cf-pages)
 assert_file_contains "$CF/.github/workflows/security.yml" "branches: [cf-pages]" \
   "security.yml targets cf-pages"
 assert_file_missing "$CF/.github/workflows/security.yml.tmp" "leaves no .tmp files"
+
+printf '\n== scenario: bare repository ==\n'
+BARE=$(install_into bare main bare)
+# Security is unconditional; README.md is the only thing copy_workflow can match.
+assert_file_exists "$BARE/.github/workflows/security.yml" "installs security.yml anyway"
+assert_file_exists "$BARE/.github/workflows/md.yml" "installs md.yml for README.md"
+for wf in css env html js json php python sh sql xml yaml \
+  test-js test-php test-python type-js type-python; do
+  assert_file_missing "$BARE/.github/workflows/$wf.yml" "skips $wf.yml with 0 files"
+done
 
 printf '\n== lint: caller workflows (actionlint) ==\n'
 actionlint_bin=$(find_tool actionlint)

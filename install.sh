@@ -202,7 +202,7 @@ if has_manifest requirements.txt pyproject.toml Pipfile setup.py setup.cfg; then
 
 {
   cat <<'EOF'
-# eustasy/.Normal 4.0beta12
+# eustasy/.Normal 4.0beta13
 # To get started with Dependabot version updates, you'll need to specify which
 # package ecosystems to update and where the package manifests are located.
 # Please see the documentation for all configuration options:
@@ -224,6 +224,8 @@ EOF
 cp .normal/configs/.github/zizmor.yml .github/zizmor.yml
 echo "Installed zizmor policy (eustasy/* ref-pin)."
 
+# actionlint config. Scopes the `if: false` deactivation pattern out of if-cond,
+# which would otherwise fail every repo that leaves a test-* workflow inactive.
 cp .normal/configs/.github/actionlint.yaml .github/actionlint.yaml
 echo "Installed actionlint config."
 

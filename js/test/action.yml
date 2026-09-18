@@ -14,7 +14,7 @@ inputs:
     description: Command that runs the tests and writes coverage.
     default: npx vitest run --coverage
   files:
-    description: Coverage file to upload.
+    description: Coverage files to upload. Accepts more than one.
     default: coverage/lcov.info
 
 runs:
