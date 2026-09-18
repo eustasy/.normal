@@ -50,6 +50,18 @@ assert_file_contains() {
   fi
 }
 
+# qlty caches its linters outside PATH; prefer a real PATH binary, then the cache.
+find_tool() {
+  if command -v "$1" >/dev/null 2>&1; then
+    command -v "$1"
+    return 0
+  fi
+  # Newest cached version wins; qlty's cache dirs sort lexically by version.
+  find "${QLTY_CACHE:-$HOME/.qlty}/cache/tools/$1" -type f -name "$1" -perm -u+x 2>/dev/null |
+    sort |
+    tail -1
+}
+
 # install_into <dir> <branch>: build a fixture repo on <branch>, seeded with one
 # file per language .Normal lints, then run install.sh inside it.
 install_into() {
@@ -101,8 +113,9 @@ assert_file_contains "$CF/.github/workflows/security.yml" "branches: [cf-pages]"
 assert_file_missing "$CF/.github/workflows/security.yml.tmp" "leaves no .tmp files"
 
 printf '\n== lint: caller workflows (actionlint) ==\n'
-if command -v actionlint >/dev/null 2>&1; then
-  if (cd "$MAIN" && actionlint -no-color -oneline .github/workflows/*.yml); then
+actionlint_bin=$(find_tool actionlint)
+if [ -n "$actionlint_bin" ]; then
+  if (cd "$MAIN" && "$actionlint_bin" -no-color -oneline .github/workflows/*.yml); then
     pass "actionlint clean on deployed callers"
   else
     fail "actionlint reported findings on deployed callers"
@@ -112,8 +125,9 @@ else
 fi
 
 printf '\n== lint: actions and callers (zizmor) ==\n'
-if command -v zizmor >/dev/null 2>&1; then
-  if (cd "$MAIN" && zizmor --no-progress --offline .github/workflows/ >zizmor.log 2>&1); then
+zizmor_bin=$(find_tool zizmor)
+if [ -n "$zizmor_bin" ]; then
+  if (cd "$MAIN" && "$zizmor_bin" --no-progress --offline .github/workflows/ >zizmor.log 2>&1); then
     pass "zizmor clean on deployed callers"
   else
     fail "zizmor reported findings on deployed callers (see $MAIN/zizmor.log)"
