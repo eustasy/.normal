@@ -6,7 +6,10 @@ runs:
   steps:
     - name: Install xmllint
       shell: bash
-      run: sudo apt-get install -y libxml2-utils
+      # The runner image ships stale apt lists, so install alone can 404.
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libxml2-utils
 
     - name: Lint XML (xmllint)
       shell: bash

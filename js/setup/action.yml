@@ -17,7 +17,9 @@ runs:
         node-version: ${{ inputs.node-version }}
         # `cache: npm` hard-fails when the root has no lockfile; empty disables it.
         # Root-only because setup-node's findLockFile only reads the workspace root.
-        cache: ${{ hashFiles('package-lock.json', 'npm-shrinkwrap.json', 'yarn.lock') != '' && 'npm' || '' }}
+        # Also off when install is false: nothing populates the cache, so restoring
+        # and saving it is pure waste.
+        cache: ${{ inputs.install == 'true' && hashFiles('package-lock.json', 'npm-shrinkwrap.json', 'yarn.lock') != '' && 'npm' || '' }}
 
     - name: Install dependencies
       # Narrower than the cache gate: yarn.lock alone must not reach `npm ci`.
