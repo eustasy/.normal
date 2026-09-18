@@ -142,7 +142,10 @@ fi
 printf '\n== actions: zizmor ==\n'
 zizmor_bin=$(find_tool zizmor)
 if [ -n "$zizmor_bin" ]; then
-  if "$zizmor_bin" --no-progress --offline "$ROOT"/*/action.yml >"$WORK/actions.log" 2>&1; then
+  # Actions live at <name>/action.yml and <lang>/<verb>/action.yml, so depth 3.
+  action_files=$(find "$ROOT" -maxdepth 3 -name action.yml -not -path '*/.git/*' | sort)
+  if [ -n "$action_files" ] &&
+    printf '%s\n' "$action_files" | xargs "$zizmor_bin" --no-progress --offline >"$WORK/actions.log" 2>&1; then
     pass "zizmor clean on all actions"
   else
     fail "zizmor reported findings on actions (see $WORK/actions.log)"
