@@ -5,6 +5,9 @@ inputs:
   node-version:
     description: Node.js version passed to actions/setup-node.
     default: lts/*
+  install:
+    description: Run `npm ci` when an npm lockfile is present. Set to "false" for jobs that only need npx.
+    default: "true"
 
 runs:
   using: composite
@@ -18,6 +21,6 @@ runs:
 
     - name: Install dependencies
       # Narrower than the cache gate: yarn.lock alone must not reach `npm ci`.
-      if: hashFiles('package-lock.json', 'npm-shrinkwrap.json') != ''
+      if: inputs.install == 'true' && hashFiles('package-lock.json', 'npm-shrinkwrap.json') != ''
       shell: bash
       run: npm ci

@@ -1,0 +1,15 @@
+name: Normal Python Lint
+description: Lint and format-check Python with ruff.
+
+runs:
+  using: composite
+  steps:
+    - uses: qltysh/qlty-action/install@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+
+    - name: Lint (ruff)
+      shell: bash
+      run: qlty check --all --no-formatters --filter=ruff
+
+    - name: Format check (ruff)
+      shell: bash
+      run: qlty check --all --filter=ruff

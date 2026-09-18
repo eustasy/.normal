@@ -3,16 +3,17 @@ description: Validate HTML with html-validate.
 
 inputs:
   node-version:
-    description: Node.js version passed to actions/setup-node.
+    description: Node.js version passed to the setup action.
     default: lts/*
 
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v7
+    - uses: eustasy/.normal/js/setup@v4
       with:
         node-version: ${{ inputs.node-version }}
+        install: "false"
 
-    - name: Lint HTML (html-validate)
+    - name: Lint (html-validate)
       shell: bash
       run: git ls-files -- '*.html' '*.htm' | xargs -r npx --yes html-validate --config .qlty/configs/.htmlvalidate.json

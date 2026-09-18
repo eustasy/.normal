@@ -1,0 +1,15 @@
+name: Normal JavaScript Lint
+description: Lint JS and TS with oxc and knip, and format-check with prettier.
+
+runs:
+  using: composite
+  steps:
+    - uses: qltysh/qlty-action/install@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+
+    - name: Lint (oxc, knip)
+      shell: bash
+      run: qlty check --all --no-formatters --filter=oxc,knip
+
+    - name: Format check (prettier)
+      shell: bash
+      run: git ls-files -- '*.js' '*.ts' '*.mjs' '*.cjs' '*.mts' '*.cts' | xargs -r qlty check --filter=prettier

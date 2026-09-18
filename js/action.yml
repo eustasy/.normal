@@ -1,33 +1,16 @@
 name: Normal JavaScript
-description: Lint JS and TS with oxc and knip, and format-check with prettier.
+description: Set up Node, then lint and format-check JS and TS.
 
 inputs:
   node-version:
-    description: Node.js version passed to actions/setup-node.
+    description: Node.js version passed to the setup action.
     default: lts/*
 
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v7
+    - uses: eustasy/.normal/js/setup@v4
       with:
         node-version: ${{ inputs.node-version }}
-        # `cache: npm` hard-fails when the root has no lockfile; empty disables it.
-        # Root-only because setup-node's findLockFile only reads the workspace root.
-        cache: ${{ hashFiles('package-lock.json', 'npm-shrinkwrap.json', 'yarn.lock') != '' && 'npm' || '' }}
 
-    - name: Install dependencies
-      # Narrower than the cache gate: yarn.lock alone must not reach `npm ci`.
-      if: hashFiles('package-lock.json', 'npm-shrinkwrap.json') != ''
-      shell: bash
-      run: npm ci
-
-    - uses: qltysh/qlty-action/install@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
-
-    - name: Lint (oxc, knip)
-      shell: bash
-      run: qlty check --all --no-formatters --filter=oxc,knip
-
-    - name: Format check (prettier)
-      shell: bash
-      run: git ls-files -- '*.js' '*.ts' '*.mjs' '*.cjs' '*.mts' '*.cts' | xargs -r qlty check --filter=prettier
+    - uses: eustasy/.normal/js/lint@v4

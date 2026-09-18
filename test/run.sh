@@ -92,6 +92,12 @@ install_into() {
   printf '%s\n' "$dir"
 }
 
+if cmp -s "$ROOT/.github/zizmor.yml" "$ROOT/configs/.github/zizmor.yml"; then
+  pass ".github/zizmor.yml matches the shipped configs copy"
+else
+  fail ".github/zizmor.yml has drifted from configs/.github/zizmor.yml"
+fi
+
 printf '\n== scenario: default branch main ==\n'
 MAIN=$(install_into main main)
 for wf in security css env html js json md php python sh sql \
