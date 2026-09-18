@@ -1,0 +1,36 @@
+name: Normal Test PHP
+description: Run the PHP test suite and upload coverage to Qlty.
+
+inputs:
+  coverage-token:
+    description: Qlty coverage token, normally secrets.QLTY_COVERAGE_TOKEN.
+    required: true
+  upload:
+    description: >-
+      Upload coverage. A matrix job should send "true" for one leg only, for
+      example upload: ${{ matrix.php-version == '8.6' }}.
+    default: "true"
+  command:
+    description: Command that runs the tests and writes coverage.
+    default: vendor/bin/phpunit --coverage-clover coverage/clover.xml
+  files:
+    description: Coverage file to upload.
+    default: coverage/clover.xml
+
+runs:
+  using: composite
+  steps:
+    - name: Run PHPUnit with coverage
+      shell: bash
+      # Via env, not interpolated: zizmor flags `run: ${{ inputs.* }}` as
+      # template-injection.
+      env:
+        NORMAL_TEST_COMMAND: ${{ inputs.command }}
+      run: bash -eo pipefail -c "$NORMAL_TEST_COMMAND"
+
+    - name: Upload coverage to Qlty
+      if: inputs.upload == 'true'
+      uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+      with:
+        coverage-token: ${{ inputs.coverage-token }}
+        files: ${{ inputs.files }}

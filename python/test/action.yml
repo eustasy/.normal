@@ -1,0 +1,43 @@
+name: Normal Test Python
+description: Run the Python test suite and upload coverage to Qlty.
+
+inputs:
+  coverage-token:
+    description: Qlty coverage token, normally secrets.QLTY_COVERAGE_TOKEN.
+    required: true
+  upload:
+    description: >-
+      Upload coverage. A matrix job should send "true" for one leg only, for
+      example upload: ${{ matrix.python-version == '3.13' }}.
+    default: "true"
+  command:
+    description: Command that runs the tests and writes coverage.
+    default: pytest --cov --cov-report=xml:coverage/cobertura.xml
+  files:
+    description: Coverage file to upload.
+    default: coverage/cobertura.xml
+  add-prefix:
+    description: >-
+      Path prefix prepended to coverage paths. Needed when coverage is measured
+      with a package-relative source, so api/app.py resolves as
+      <package>/api/app.py against the repository root.
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Run pytest with coverage
+      shell: bash
+      # Via env, not interpolated: zizmor flags `run: ${{ inputs.* }}` as
+      # template-injection.
+      env:
+        NORMAL_TEST_COMMAND: ${{ inputs.command }}
+      run: bash -eo pipefail -c "$NORMAL_TEST_COMMAND"
+
+    - name: Upload coverage to Qlty
+      if: inputs.upload == 'true'
+      uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+      with:
+        coverage-token: ${{ inputs.coverage-token }}
+        files: ${{ inputs.files }}
+        add-prefix: ${{ inputs.add-prefix }}

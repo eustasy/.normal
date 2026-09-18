@@ -1,0 +1,34 @@
+name: Normal Test JavaScript
+description: Run the JS or TS test suite and upload coverage to Qlty.
+
+inputs:
+  coverage-token:
+    description: Qlty coverage token, normally secrets.QLTY_COVERAGE_TOKEN.
+    required: true
+  upload:
+    description: Upload coverage. A matrix job should send "true" for one leg only.
+    default: "true"
+  command:
+    description: Command that runs the tests and writes coverage.
+    default: npx vitest run --coverage
+  files:
+    description: Coverage file to upload.
+    default: coverage/lcov.info
+
+runs:
+  using: composite
+  steps:
+    - name: Run Vitest with coverage
+      shell: bash
+      # Via env, not interpolated: zizmor flags `run: ${{ inputs.* }}` as
+      # template-injection.
+      env:
+        NORMAL_TEST_COMMAND: ${{ inputs.command }}
+      run: bash -eo pipefail -c "$NORMAL_TEST_COMMAND"
+
+    - name: Upload coverage to Qlty
+      if: inputs.upload == 'true'
+      uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
+      with:
+        coverage-token: ${{ inputs.coverage-token }}
+        files: ${{ inputs.files }}
