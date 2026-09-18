@@ -187,6 +187,29 @@ else
   printf '  skip zizmor on actions (not found)\n'
 fi
 
+printf '\n== actions: manifest contexts ==\n'
+# GitHub evaluates ${{ }} when it LOADS an action manifest, where only inputs,
+# github, runner, env, strategy, matrix-free contexts exist. A reference to
+# matrix, secrets, needs, job or steps anywhere in action.yml -- including in an
+# input description, which reads like prose but is not -- fails the whole
+# manifest before a single step runs. No linter catches this: actionlint cannot
+# parse action.yml and zizmor does not evaluate manifests, so only a live runner
+# or this check will.
+bad_ctx=""
+for f in $(find "$ROOT" -maxdepth 3 -name action.yml -not -path '*/.git/*' | sort); do
+  # Strip comment lines first: YAML drops them before the expression parser runs,
+  # so a ${{ }} inside one is documentation, not a reference.
+  if sed 's/[[:space:]]*#.*$//' "$f" |
+    grep -Eq '\$\{\{[^}]*(matrix|secrets|needs|job|steps)\.'; then
+    bad_ctx="$bad_ctx $f"
+  fi
+done
+if [ -z "$bad_ctx" ]; then
+  pass "no manifest-invalid contexts in any action.yml"
+else
+  fail "action.yml references a context unavailable at manifest load:$bad_ctx"
+fi
+
 printf '\n== self: .Normal own workflows ==\n'
 if [ -n "$actionlint_bin" ]; then
   if "$actionlint_bin" -no-color -oneline "$ROOT"/.github/workflows/*.yml; then

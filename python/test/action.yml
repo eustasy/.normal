@@ -6,9 +6,11 @@ inputs:
     description: Qlty coverage token, normally secrets.QLTY_COVERAGE_TOKEN.
     required: true
   upload:
+    # No ${{ }} in this description. GitHub evaluates expressions in an action
+    # manifest, where `matrix` is out of scope, and the manifest fails to load.
     description: >-
-      Upload coverage. A matrix job should send "true" for one leg only, for
-      example upload: ${{ matrix.python-version == '3.13' }}.
+      Upload coverage. A matrix job should send "true" for one leg only — compare
+      matrix.python-version against the leg that should upload.
     default: "true"
   command:
     description: Command that runs the tests and writes coverage.
