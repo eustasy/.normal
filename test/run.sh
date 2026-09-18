@@ -14,7 +14,14 @@ WORK=$(mktemp -d)
 FAILURES=0
 CHECKS=0
 
-cleanup() { rm -rf "$WORK"; }
+cleanup() {
+  # Failure messages name logs inside $WORK, so it has to outlive a failing run.
+  if [ "$FAILURES" -eq 0 ]; then
+    rm -rf "$WORK"
+  else
+    printf '\nfixtures kept for inspection: %s\n' "$WORK"
+  fi
+}
 trap cleanup EXIT
 
 pass() {
@@ -64,7 +71,11 @@ install_into() {
     cp -R "$ROOT" .normal
     rm -rf .normal/.git
     cp .normal/install.sh install.sh
-    sh install.sh >install.log 2>&1
+    if ! sh install.sh >install.log 2>&1; then
+      printf 'install.sh failed in %s\n' "$dir" >&2
+      sed 's/^/    /' install.log >&2
+      exit 1
+    fi
   )
   printf '%s\n' "$dir"
 }
