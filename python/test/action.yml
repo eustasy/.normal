@@ -38,6 +38,7 @@ runs:
       if: inputs.upload == 'true'
       uses: qltysh/qlty-action/coverage@08a0a862c159eae9b9003081da6663d96efef637 # v2.3.0
       with:
-        coverage-token: ${{ inputs.coverage-token }}
+        # Upstream renamed this input; `coverage-token` is deprecated and warns.
+        token: ${{ inputs.coverage-token }}
         files: ${{ inputs.files }}
         add-prefix: ${{ inputs.add-prefix }}
