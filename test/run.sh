@@ -56,7 +56,8 @@ find_tool() {
     command -v "$1"
     return 0
   fi
-  # Newest cached version wins; qlty's cache dirs sort lexically by version.
+  # Lexical, not semver: this would take 1.9 over 1.10. Good enough, because the
+  # cache normally holds one version and CI puts pinned binaries on PATH first.
   find "${QLTY_CACHE:-$HOME/.qlty}/cache/tools/$1" -type f -name "$1" -perm -u+x 2>/dev/null |
     sort |
     tail -1
@@ -142,7 +143,7 @@ if [ -n "$actionlint_bin" ]; then
     fail "actionlint reported findings on deployed callers"
   fi
 else
-  printf '  skip actionlint (not on PATH)\n'
+  printf '  skip actionlint (not found)\n'
 fi
 
 printf '\n== lint: actions and callers (zizmor) ==\n'
@@ -154,7 +155,7 @@ if [ -n "$zizmor_bin" ]; then
     fail "zizmor reported findings on deployed callers (see $MAIN/zizmor.log)"
   fi
 else
-  printf '  skip zizmor (not on PATH)\n'
+  printf '  skip zizmor (not found)\n'
 fi
 
 printf '\n== actions: zizmor ==\n'
@@ -169,7 +170,28 @@ if [ -n "$zizmor_bin" ]; then
     fail "zizmor reported findings on actions (see $WORK/actions.log)"
   fi
 else
-  printf '  skip zizmor on actions (not on PATH)\n'
+  printf '  skip zizmor on actions (not found)\n'
+fi
+
+printf '\n== self: .Normal own workflows ==\n'
+if [ -n "$actionlint_bin" ]; then
+  if "$actionlint_bin" -no-color -oneline "$ROOT"/.github/workflows/*.yml; then
+    pass "actionlint clean on .Normal's own workflows"
+  else
+    fail "actionlint reported findings on .Normal's own workflows"
+  fi
+else
+  printf '  skip actionlint on own workflows (not found)\n'
+fi
+if [ -n "$zizmor_bin" ]; then
+  # Run from $ROOT so zizmor picks up .Normal's own .github/zizmor.yml.
+  if (cd "$ROOT" && "$zizmor_bin" --no-progress --offline .github/workflows/ >"$WORK/self.log" 2>&1); then
+    pass "zizmor clean on .Normal's own workflows"
+  else
+    fail "zizmor reported findings on .Normal's own workflows (see $WORK/self.log)"
+  fi
+else
+  printf '  skip zizmor on own workflows (not found)\n'
 fi
 
 printf '\n%s checks, %s failures\n' "$CHECKS" "$FAILURES"

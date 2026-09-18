@@ -1,0 +1,37 @@
+# eustasy/.Normal 4.0beta13
+name: "Normal: Self-test"
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  self-test:
+    name: install.sh + actions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install actionlint
+        shell: bash
+        run: |
+          curl -sSL -o actionlint.tar.gz \
+            https://github.com/rhysd/actionlint/releases/download/v1.7.9/actionlint_1.7.9_linux_amd64.tar.gz
+          tar xzf actionlint.tar.gz actionlint
+          sudo mv actionlint /usr/local/bin/
+          rm actionlint.tar.gz
+
+      - name: Install zizmor
+        shell: bash
+        run: pipx install zizmor==1.16.3
+
+      - name: Run the test harness
+        shell: bash
+        run: sh test/run.sh
