@@ -120,13 +120,13 @@ copy_workflow() {
 # Remove .normal-managed workflows before re-checking, so updating .normal drops
 # any whose file types are no longer present (or are now excluded). Workflows the
 # project added itself are left untouched.
-for wf in security css env html js json md php python sh sql test-js test-php test-python type-js type-python xml yaml; do
+for wf in security actions css env html js json md php python sh sql test-js test-php test-python type-js type-python xml yaml; do
   rm -f ".github/workflows/${wf}.yml"
 done
 
 # Dependabot: only declare ecosystems whose package manifests are actually present,
 # so a repo isn't nagged about package managers it doesn't use. github-actions is
-# always included because install.sh always installs at least the security workflow,
+# always included because install.sh always installs the security and actions workflows,
 # so there are always pinned action versions to keep updated. Detection is root-only
 # to match the directory: "/" each block declares; manifests in subdirectories are
 # out of scope (as they were with the old static config).
@@ -202,7 +202,7 @@ if has_manifest requirements.txt pyproject.toml Pipfile setup.py setup.cfg; then
 
 {
   cat <<'EOF'
-# eustasy/.Normal 4.0beta15
+# eustasy/.Normal 4.0beta16
 # To get started with Dependabot version updates, you'll need to specify which
 # package ecosystems to update and where the package manifests are located.
 # Please see the documentation for all configuration options:
@@ -232,6 +232,12 @@ echo "Installed actionlint config."
 # Security workflow always runs regardless of file types present.
 install_workflow security
 echo "Installed security workflow (always)."
+
+# Always, for the same reason as security: install.sh writes workflows into every
+# repository, so actionlint and zizmor always have something to lint. Gating this
+# on a file count can never legitimately return zero.
+install_workflow actions
+echo "Installed actions workflow (always)."
 
 copy_workflow css        "*.css" "*.scss"
 copy_workflow env        ".env*"

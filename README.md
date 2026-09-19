@@ -15,7 +15,7 @@ chmod 755 install.sh &&
 rm install.sh &&
 rm -Rf .normal
 git add -A
-git commit -m "Install eustasy/.Normal 4.0beta15"
+git commit -m "Install eustasy/.Normal 4.0beta16"
 git push
 ```
 
@@ -40,6 +40,7 @@ git push
 | `.github/zizmor.yml` | zizmor policy granting `eustasy/*` a ref-pin exemption |
 | `.github/actionlint.yaml` | actionlint config; scopes the `if: false` deactivation pattern out of `if-cond` |
 | `.github/workflows/security.yml` | Security scanning (every push) |
+| `.github/workflows/actions.yml` | Workflow linting with actionlint + zizmor (always installed) |
 | `.github/workflows/{language}.yml` | Per-language lint + format CI |
 | `.github/workflows/test-{language}.yml` | Test + coverage CI (activate by removing `if: false`) |
 | `.github/workflows/type-{language}.yml` | Typecheck CI — TS (tsc), Python (mypy) (activate by removing `if: false`) |
@@ -219,7 +220,7 @@ chmod 755 install.sh &&
 rm install.sh &&
 rm -Rf .normal;
 git add -A;
-git commit -m "Migrate to eustasy/.Normal 4.0beta15 (Qlty)";
+git commit -m "Migrate to eustasy/.Normal 4.0beta16 (Qlty)";
 git push
 ```
 

@@ -1,25 +1,27 @@
 # eustasy/.Normal 4.0beta16
-name: "Normal: Env"
+name: "Normal: Actions"
 on:
   workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - ".env*"
-      - ".github/workflows/env.yml"
+      - ".github/workflows/**"
+      - ".github/actionlint.yaml"
+      - ".github/zizmor.yml"
       - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
     paths:
-      - ".env*"
-      - ".github/workflows/env.yml"
+      - ".github/workflows/**"
+      - ".github/actionlint.yaml"
+      - ".github/zizmor.yml"
       - ".qlty/qlty.toml"
 
 permissions:
   contents: read
 
 jobs:
-  env:
+  actions:
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -27,4 +29,4 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: eustasy/.normal/env@v4
+      - uses: eustasy/.normal/actions@v4

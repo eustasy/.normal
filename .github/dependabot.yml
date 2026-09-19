@@ -6,12 +6,37 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    # github-actions scans <directory> literally, so give the full workflow path:
-    # "/" = this repo's own .github/workflows; "/configs/.github/workflows" =
-    # the deployable template workflows.
+    # github-actions scans <directory> literally for .github/workflows/ and for
+    # action.yml, so every path has to be named: "/" = this repo's own
+    # workflows; "/configs/.github/workflows" = the deployable templates; the
+    # rest are the composite actions, which is where every hash-pinned
+    # third-party action now lives. test/run.sh asserts this list stays complete.
     directories:
       - "/"
       - "/configs/.github/workflows"
+      - "/actions"
+      - "/css"
+      - "/env"
+      - "/html"
+      - "/js"
+      - "/js/lint"
+      - "/js/setup"
+      - "/js/test"
+      - "/json"
+      - "/md"
+      - "/php"
+      - "/php/lint"
+      - "/php/setup"
+      - "/php/test"
+      - "/python"
+      - "/python/lint"
+      - "/python/setup"
+      - "/python/test"
+      - "/security"
+      - "/sh"
+      - "/sql"
+      - "/xml"
+      - "/yaml"
     schedule:
       interval: "daily"
     groups:

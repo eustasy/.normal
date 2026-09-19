@@ -105,13 +105,13 @@ fi
 
 printf '\n== scenario: default branch main ==\n'
 MAIN=$(install_into main main)
-for wf in security css env html js json md php python sh sql \
+for wf in security actions css env html js json md php python sh sql \
   test-js test-php test-python type-js type-python xml yaml; do
   assert_file_exists "$MAIN/.github/workflows/$wf.yml" "installs $wf.yml"
 done
 assert_file_contains "$MAIN/.github/workflows/security.yml" "branches: [main]" \
   "security.yml targets main"
-for wf in security css env html js json md php python sh sql xml yaml; do
+for wf in security actions css env html js json md php python sh sql xml yaml; do
   assert_file_contains "$MAIN/.github/workflows/$wf.yml" \
     "uses: eustasy/.normal/$wf@v4" "$wf.yml calls the $wf action"
 done
@@ -136,12 +136,16 @@ printf '\n== scenario: default branch cf-pages ==\n'
 CF=$(install_into cf cf-pages)
 assert_file_contains "$CF/.github/workflows/security.yml" "branches: [cf-pages]" \
   "security.yml targets cf-pages"
+assert_file_contains "$CF/.github/workflows/actions.yml" "branches: [cf-pages]" \
+  "actions.yml targets cf-pages"
 assert_file_missing "$CF/.github/workflows/security.yml.tmp" "leaves no .tmp files"
 
 printf '\n== scenario: bare repository ==\n'
 BARE=$(install_into bare main bare)
-# Security is unconditional; README.md is the only thing copy_workflow can match.
+# Security and actions are unconditional; README.md is the only thing
+# copy_workflow can match.
 assert_file_exists "$BARE/.github/workflows/security.yml" "installs security.yml anyway"
+assert_file_exists "$BARE/.github/workflows/actions.yml" "installs actions.yml anyway"
 assert_file_exists "$BARE/.github/workflows/md.yml" "installs md.yml for README.md"
 for wf in css env html js json php python sh sql xml yaml \
   test-js test-php test-python type-js type-python; do
@@ -205,6 +209,22 @@ if [ -z "$uncovered" ]; then
   pass "every deployed .github YAML is in qlty.toml's yamllint exclude"
 else
   fail "deployed .github YAML missing from qlty.toml yamllint exclude:$uncovered"
+fi
+
+printf '\n== self: dependabot covers every action ==\n'
+# Dependabot's github-actions ecosystem scans <directory> literally for
+# .github/workflows/ and action.yml. There is no root action.yml here, so every
+# composite action directory must be named or its pinned third-party SHAs are
+# never updated — which is what happened when the actions were first split out.
+missing_dep=""
+for f in $(find "$ROOT" -maxdepth 3 -name action.yml -not -path '*/.git/*' | sort); do
+  d=$(dirname "${f#"$ROOT"}")
+  grep -Fq "\"$d\"" "$ROOT/.github/dependabot.yml" || missing_dep="$missing_dep $d"
+done
+if [ -z "$missing_dep" ]; then
+  pass "every action directory is listed in .Normal's dependabot.yml"
+else
+  fail "action directories missing from dependabot.yml:$missing_dep"
 fi
 
 printf '\n== actions: manifest contexts ==\n'
