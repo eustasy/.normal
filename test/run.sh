@@ -187,6 +187,26 @@ else
   printf '  skip zizmor on actions (not found)\n'
 fi
 
+printf '\n== deployed: yamllint exclude coverage ==\n'
+# qlty.toml scopes yamllint out of the YAML install.sh deploys, because those
+# files are read by actionlint/zizmor/Dependabot rather than held to a YAML style
+# guide. Adding a new deployed .github/*.y(a)ml without adding it here makes qlty
+# fail in every consuming repo, which is how .github/zizmor.yml and
+# .github/actionlint.yaml shipped broken in 4.0beta13.
+uncovered=""
+for f in "$MAIN"/.github/*.yml "$MAIN"/.github/*.yaml; do
+  [ -e "$f" ] || continue
+  base=${f#"$MAIN"/}
+  if ! grep -Fq "\"**/$base\"" "$MAIN/.qlty/qlty.toml"; then
+    uncovered="$uncovered $base"
+  fi
+done
+if [ -z "$uncovered" ]; then
+  pass "every deployed .github YAML is in qlty.toml's yamllint exclude"
+else
+  fail "deployed .github YAML missing from qlty.toml yamllint exclude:$uncovered"
+fi
+
 printf '\n== actions: manifest contexts ==\n'
 # GitHub evaluates ${{ }} when it LOADS an action manifest, where only inputs,
 # github, runner, env, strategy, matrix-free contexts exist. A reference to
