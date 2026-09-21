@@ -37,7 +37,7 @@ jobs:
 
       - uses: eustasy/.normal/python/setup@v4
         with:
-          python-version: "3.13"
+          python-version: "3.14"
           install-command: pip install -r requirements.txt && pip install mypy
 
       - name: Typecheck (mypy)

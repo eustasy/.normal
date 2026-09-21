@@ -51,4 +51,4 @@ jobs:
       - uses: eustasy/.normal/php/test@v4
         with:
           coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          upload: ${{ matrix.php-version == '8.6' }}
+          upload: ${{ matrix.php-version == '8.5' }}
