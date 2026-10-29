@@ -76,6 +76,35 @@ NORMAL_DEFAULT_BRANCH=trunk ./install.sh
 `git remote set-head origin --auto` refreshes a stale `origin/HEAD` if you would
 rather fix the cause.
 
+### Updating
+
+Run the same commands again. `install.sh` merges each file into the project
+rather than copying over it, so the changes a project makes to what .Normal
+installed, like activating a `test-*` workflow, adding a service container or
+excluding a path from a linter, survive the update.
+
+Each file gets a three-way merge, as `git merge` would do. The base is what the
+previously installed version shipped, rebuilt from its tag in the `.normal`
+clone, and that version is read from the `# eustasy/.Normal <version>` header on
+the installed files.
+
+- A file the project never changed updates to the new version.
+- A file the project changed keeps those changes and takes the new version's.
+- A workflow the project deleted stays deleted, if git history shows it was deleted.
+- A workflow for a file type the project no longer has is removed if unchanged,
+  and kept and reported if changed.
+- Where the project and the new version changed the same lines, the file is left
+  with `<<<<<<<` conflict markers, the conflicts are listed, and `install.sh`
+  exits non-zero. Resolve them before committing.
+
+The merge needs the installed version's tag, so clone `.normal` in full as shown
+above, not with `--depth`. Two variables cover the exceptions:
+
+```bash
+NORMAL_PREVIOUS_VERSION=4.0beta16 ./install.sh  # the headers are missing or wrong
+NORMAL_OVERWRITE=1 ./install.sh                 # overwrite every file, as install.sh used to
+```
+
 ### Customising a workflow
 
 The deployed workflows are thin callers. The linting logic lives in composite

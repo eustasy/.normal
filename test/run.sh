@@ -152,6 +152,192 @@ for wf in css env html js json php python sh sql xml yaml \
   assert_file_missing "$BARE/.github/workflows/$wf.yml" "skips $wf.yml with 0 files"
 done
 
+# Upgrades need a .normal clone with history: install.sh rebuilds what the
+# previous version installed from that version's tag. FAKE is a git repository
+# holding this tree twice — tagged 0.9test with a few differences an upgrade has
+# to carry across, then this tree as it is — so upgrades are tested offline.
+FAKE="$WORK/fake-normal"
+mkdir -p "$FAKE"
+(cd "$ROOT" && tar --exclude=./.git -cf - .) | (cd "$FAKE" && tar -xf -)
+(
+  cd "$FAKE"
+  git init -q -b main .
+  git config user.email test@example.com
+  git config user.name Test
+  git add -A
+  git commit -qm current
+  grep -rl 'eustasy/.Normal 5.0' configs install.sh |
+    while IFS= read -r f; do
+      sed 's/eustasy\/\.Normal 5\.0/eustasy\/.Normal 0.9test/' "$f" >"$f.tmp" && mv "$f.tmp" "$f"
+    done
+  sed "s/upload: \${{ matrix.php-version == '8.5' }}/upload: \${{ matrix.php-version == '8.6' }}/" \
+    configs/.github/workflows/test-php.yml >t.tmp && mv t.tmp configs/.github/workflows/test-php.yml
+  sed 's/interval: "monthly"/interval: "weekly"/' install.sh >t.tmp && mv t.tmp install.sh
+  git commit -qam old
+  git tag 0.9test
+  git checkout -q HEAD~1 -- .
+  git commit -qm current-again
+)
+
+# fixture <name> [ref]: a seeded repo with .Normal at <ref> (default 0.9test)
+# installed and committed. Prints the directory.
+fixture() {
+  dir="$WORK/$1"
+  mkdir -p "$dir"
+  cp "$ROOT"/empty/test.* "$dir/" 2>/dev/null || true
+  printf '{\n  "name": "eustasy/fixture"\n}\n' >"$dir/composer.json"
+  (
+    cd "$dir"
+    git init -q -b main .
+    git config user.email test@example.com
+    git config user.name Test
+    git clone -q "$FAKE" .normal
+    git -C .normal checkout -q "${2:-0.9test}"
+    printf '.normal/\n*.log\n' >.git/info/exclude
+    sh .normal/install.sh >install.log 2>&1
+    git add -A
+    git commit -qm installed
+  )
+  printf '%s\n' "$dir"
+}
+
+# upgrade <dir>: move .normal to this tree and install again. Prints the exit code.
+upgrade() {
+  (
+    cd "$1"
+    git -C .normal checkout -q main
+    rc=0
+    sh .normal/install.sh >upgrade.log 2>&1 || rc=$?
+    printf '%s\n' "$rc"
+  )
+}
+
+assert_no_markers() {
+  if grep -rlq '^<<<<<<< ' "$1/.github" "$1/.qlty" "$1/.vscode" "$1/.editorconfig" 2>/dev/null; then
+    fail "$2"
+  else
+    pass "$2"
+  fi
+}
+
+printf '\n== upgrade: keeps the project'"'"'s changes ==\n'
+UP=$(fixture upgrade)
+(
+  cd "$UP"
+  sed -e '/# Remove the .if: false. below to activate this workflow./d' -e '/^    if: false$/d' \
+    -e 's/^      # Insert project-specific steps here.*$/      - name: Seed fixtures\n        run: .\/seed.sh/' \
+    .github/workflows/test-php.yml >t.tmp && mv t.tmp .github/workflows/test-php.yml
+  printf '\n[[exclude]]\nplugins = ["phpstan"]\nfile_patterns = ["tests/**"]\n' >>.qlty/qlty.toml
+  printf '# A project note.\n' >>.github/dependabot.yml
+  git rm -q .github/workflows/test-js.yml
+  git commit -qam customised
+)
+rc=$(upgrade "$UP")
+if [ "$rc" = 0 ]; then pass "upgrade exits 0"; else fail "upgrade exits 0 (got $rc, see $UP/upgrade.log)"; fi
+assert_no_markers "$UP" "upgrade leaves no conflict markers"
+if cmp -s "$UP/.github/workflows/security.yml" "$ROOT/configs/.github/workflows/security.yml"; then
+  pass "an unchanged workflow updates to this version"
+else
+  fail "an unchanged workflow updates to this version"
+fi
+if grep -q 'if: false' "$UP/.github/workflows/test-php.yml"; then
+  fail "an activated test-* workflow stays active"
+else
+  pass "an activated test-* workflow stays active"
+fi
+assert_file_contains "$UP/.github/workflows/test-php.yml" "run: ./seed.sh" \
+  "a project's own step is kept"
+assert_file_contains "$UP/.github/workflows/test-php.yml" "matrix.php-version == '8.5'" \
+  "the same file still takes this version's changes"
+assert_file_contains "$UP/.github/workflows/test-php.yml" "# eustasy/.Normal 5.0" \
+  "the header moves to this version"
+assert_file_contains "$UP/.qlty/qlty.toml" 'plugins = ["phpstan"]' "qlty.toml keeps a project exclude"
+assert_file_contains "$UP/.github/dependabot.yml" "# A project note." "dependabot.yml keeps a project line"
+assert_file_contains "$UP/.github/dependabot.yml" 'interval: "monthly"' \
+  "dependabot.yml takes this version's generator change"
+assert_file_missing "$UP/.github/workflows/test-js.yml" "a deleted workflow stays deleted"
+
+printf '\n== upgrade: both sides changed a line ==\n'
+CON=$(fixture conflict)
+(
+  cd "$CON"
+  sed "s/matrix.php-version == '8.6'/matrix.php-version == '8.4'/" \
+    .github/workflows/test-php.yml >t.tmp && mv t.tmp .github/workflows/test-php.yml
+  git commit -qam customised
+)
+rc=$(upgrade "$CON")
+if [ "$rc" != 0 ]; then pass "a conflict exits non-zero"; else fail "a conflict exits non-zero"; fi
+assert_file_contains "$CON/.github/workflows/test-php.yml" "<<<<<<< .github/workflows/test-php.yml (this project)" \
+  "the conflicting file carries markers"
+assert_file_contains "$CON/upgrade.log" ".github/workflows/test-php.yml" "the conflict is reported"
+if cmp -s "$CON/.github/workflows/security.yml" "$ROOT/configs/.github/workflows/security.yml"; then
+  pass "other files still update"
+else
+  fail "other files still update"
+fi
+
+printf '\n== upgrade: file types gone from the project ==\n'
+GONE=$(fixture gone)
+(
+  cd "$GONE"
+  printf '\n# A project note.\n' >>.github/workflows/sh.yml
+  git rm -q test.sql test.sh
+  git commit -qam customised
+)
+rc=$(upgrade "$GONE")
+if [ "$rc" = 0 ]; then pass "upgrade exits 0"; else fail "upgrade exits 0 (got $rc, see $GONE/upgrade.log)"; fi
+assert_file_missing "$GONE/.github/workflows/sql.yml" "an unchanged workflow for a gone type is removed"
+assert_file_exists "$GONE/.github/workflows/sh.yml" "a changed workflow for a gone type is kept"
+assert_file_contains "$GONE/upgrade.log" ".github/workflows/sh.yml (changed in this project" \
+  "keeping it is reported"
+
+printf '\n== upgrade: same version again ==\n'
+SAME=$(fixture same main)
+(
+  cd "$SAME"
+  printf '# A project note.\n' >>.editorconfig
+  git commit -qam customised
+)
+rc=$(upgrade "$SAME")
+if [ "$rc" = 0 ] && [ -z "$(cd "$SAME" && git status --porcelain)" ]; then
+  pass "re-running the installed version changes nothing"
+else
+  fail "re-running the installed version changes nothing (see $SAME/upgrade.log)"
+fi
+
+printf '\n== upgrade: no tag for the installed version ==\n'
+NOTAG=$(fixture notag)
+(
+  cd "$NOTAG"
+  printf '# A project note.\n' >>.editorconfig
+  git commit -qam customised
+  git -C .normal checkout -q main
+  rm -rf .normal/.git
+)
+rc=$( (cd "$NOTAG" && sh .normal/install.sh >upgrade.log 2>&1) && echo 0 || echo 1)
+if [ "$rc" != 0 ]; then pass "a missing tag exits non-zero"; else fail "a missing tag exits non-zero"; fi
+if [ -z "$(cd "$NOTAG" && git status --porcelain)" ]; then
+  pass "a missing tag changes nothing"
+else
+  fail "a missing tag changes nothing"
+fi
+assert_file_contains "$NOTAG/upgrade.log" "NORMAL_PREVIOUS_VERSION" "the fixes are explained"
+
+printf '\n== upgrade: NORMAL_OVERWRITE=1 ==\n'
+OVER=$(fixture overwrite)
+(
+  cd "$OVER"
+  printf '# A project note.\n' >>.editorconfig
+  git commit -qam customised
+  git -C .normal checkout -q main
+  NORMAL_OVERWRITE=1 sh .normal/install.sh >upgrade.log 2>&1
+)
+if cmp -s "$OVER/.editorconfig" "$ROOT/configs/.editorconfig"; then
+  pass "NORMAL_OVERWRITE=1 overwrites as before"
+else
+  fail "NORMAL_OVERWRITE=1 overwrites as before"
+fi
+
 printf '\n== lint: caller workflows (actionlint) ==\n'
 actionlint_bin=$(find_tool actionlint)
 if [ -n "$actionlint_bin" ]; then
