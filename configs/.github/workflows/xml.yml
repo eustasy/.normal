@@ -1,4 +1,4 @@
-# eustasy/.Normal 4.0beta17
+# eustasy/.Normal 5.0
 name: "Normal: XML"
 on:
   workflow_dispatch:
@@ -25,4 +25,4 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: eustasy/.normal/xml@v4
+      - uses: eustasy/.normal/xml@v5

@@ -12,10 +12,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: eustasy/.normal/php/setup@v4
+    - uses: eustasy/.normal/php/setup@v5
       with:
         php-version: ${{ inputs.php-version }}
         extensions: ${{ inputs.extensions }}
         coverage: none
 
-    - uses: eustasy/.normal/php/lint@v4
+    - uses: eustasy/.normal/php/lint@v5

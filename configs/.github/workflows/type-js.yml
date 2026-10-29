@@ -1,4 +1,4 @@
-# eustasy/.Normal 4.0beta17
+# eustasy/.Normal 5.0
 name: "Type: TS"
 on:
   workflow_dispatch:
@@ -43,7 +43,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: eustasy/.normal/js/setup@v4
+      - uses: eustasy/.normal/js/setup@v5
 
       - name: Typecheck (tsc)
         # Replace with your own script if the project wraps tsc, for example

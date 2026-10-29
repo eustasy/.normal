@@ -1,4 +1,4 @@
-# eustasy/.Normal 4.0beta17
+# eustasy/.Normal 5.0
 name: "Normal: Self-test"
 on:
   workflow_dispatch:

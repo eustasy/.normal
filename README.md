@@ -15,7 +15,7 @@ chmod 755 install.sh &&
 rm install.sh &&
 rm -Rf .normal
 git add -A
-git commit -m "Install eustasy/.Normal 4.0beta17"
+git commit -m "Install eustasy/.Normal 5.0"
 git push
 ```
 
@@ -79,7 +79,7 @@ rather fix the cause.
 ### Customising a workflow
 
 The deployed workflows are thin callers. The linting logic lives in composite
-actions in this repository, referenced by the moving `v4` tag, so a fix reaches
+actions in this repository, referenced by the moving `v5` tag, so a fix reaches
 every project as soon as the tag moves.
 
 Anything a project needs to vary lives in the caller: the trigger and its path
@@ -92,7 +92,7 @@ when a job needs something in between. The `test-*` workflows already do, so
 project-specific steps can sit between setup and the test run:
 
 ```yaml
-      - uses: eustasy/.normal/php/setup@v4
+      - uses: eustasy/.normal/php/setup@v5
         with:
           php-version: ${{ matrix.php-version }}
           coverage: pcov
@@ -100,7 +100,7 @@ project-specific steps can sit between setup and the test run:
       - name: Load database fixtures
         run: ./scripts/seed-test-db.sh
 
-      - uses: eustasy/.normal/php/test@v4
+      - uses: eustasy/.normal/php/test@v5
         with:
           coverage-token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
 ```
@@ -220,7 +220,7 @@ chmod 755 install.sh &&
 rm install.sh &&
 rm -Rf .normal;
 git add -A;
-git commit -m "Migrate to eustasy/.Normal 4.0beta17 (Qlty)";
+git commit -m "Migrate to eustasy/.Normal 5.0 (Qlty)";
 git push
 ```
 

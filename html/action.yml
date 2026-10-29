@@ -9,7 +9,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: eustasy/.normal/js/setup@v4
+    - uses: eustasy/.normal/js/setup@v5
       with:
         node-version: ${{ inputs.node-version }}
         install: "false"

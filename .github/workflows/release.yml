@@ -1,4 +1,4 @@
-# eustasy/.Normal 4.0beta17
+# eustasy/.Normal 5.0
 name: "Normal: Release"
 on:
   release:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Force-push v<major> and v<major>.<minor>
         shell: bash
-        # Consumers reference eustasy/.normal/<action>@v4, so v4 has to follow
+        # Consumers reference eustasy/.normal/<action>@v5, so v5 has to follow
         # each release. GitHub's guidance is to keep the minor tag current too.
         # This only works while immutable releases is off for this repository;
         # enabling it blocks force-pushing tags tied to a release.

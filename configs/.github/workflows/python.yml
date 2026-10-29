@@ -1,4 +1,4 @@
-# eustasy/.Normal 4.0beta17
+# eustasy/.Normal 5.0
 name: "Normal: Python"
 on:
   workflow_dispatch:
@@ -33,6 +33,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: eustasy/.normal/python@v4
+      - uses: eustasy/.normal/python@v5
         with:
           python-version: ${{ matrix.python-version }}
