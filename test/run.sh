@@ -381,8 +381,7 @@ printf '\n== deployed: yamllint exclude coverage ==\n'
 # qlty.toml scopes yamllint out of the YAML install.sh deploys, because those
 # files are read by actionlint/zizmor/Dependabot rather than held to a YAML style
 # guide. Adding a new deployed .github/*.y(a)ml without adding it here makes qlty
-# fail in every consuming repo, which is how .github/zizmor.yml and
-# .github/actionlint.yaml shipped broken in 4.0beta13.
+# fail in every consuming repo.
 uncovered=""
 for f in "$MAIN"/.github/*.yml "$MAIN"/.github/*.yaml; do
   [ -e "$f" ] || continue
@@ -401,7 +400,7 @@ printf '\n== self: dependabot covers every action ==\n'
 # Dependabot's github-actions ecosystem scans <directory> literally for
 # .github/workflows/ and action.yml. There is no root action.yml here, so every
 # composite action directory must be named or its pinned third-party SHAs are
-# never updated — which is what happened when the actions were first split out.
+# never updated.
 missing_dep=""
 for f in $(find "$ROOT" -maxdepth 3 -name action.yml -not -path '*/.git/*' | sort); do
   d=$(dirname "${f#"$ROOT"}")

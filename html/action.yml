@@ -16,4 +16,6 @@ runs:
 
     - name: Lint (html-validate)
       shell: bash
-      run: git ls-files -- '*.html' '*.htm' | xargs -r npx --yes html-validate --config .qlty/configs/.htmlvalidate.json
+      # Pinned: npx would otherwise fetch whatever html-validate is latest on
+      # every run. Dependabot does not track this; bump it by hand.
+      run: git ls-files -- '*.html' '*.htm' | xargs -r npx --yes html-validate@11.21.0 --config .qlty/configs/.htmlvalidate.json
