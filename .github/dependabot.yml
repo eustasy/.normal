@@ -9,8 +9,8 @@ updates:
     # github-actions scans <directory> literally for .github/workflows/ and for
     # action.yml, so every path has to be named: "/" = this repo's own
     # workflows; "/configs/.github/workflows" = the deployable templates; the
-    # rest are the composite actions, which is where every hash-pinned
-    # third-party action now lives. test/run.sh asserts this list stays complete.
+    # rest are the composite actions, which hold every hash-pinned third-party
+    # action. test/run.sh asserts this list stays complete.
     directories:
       - "/"
       - "/configs/.github/workflows"

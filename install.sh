@@ -19,7 +19,7 @@ set -e
 #
 # The previous version comes from the `# eustasy/.Normal <version>` header on the
 # installed files. NORMAL_PREVIOUS_VERSION=<tag> overrides it, and
-# NORMAL_OVERWRITE=1 skips merging entirely and overwrites, as install.sh used to.
+# NORMAL_OVERWRITE=1 skips merging entirely and overwrites every file.
 
 # 1. Find the version the project has now. Checked before anything changes, so a
 # missing tag can stop the install cleanly.
@@ -69,7 +69,6 @@ rm -f \
   .codacy.yml .travis.yml check-config.sh check-permissions.sh \
   .prettierrc.json \
   .github/workflows/normal.yml
-# .prettierrc.json moved into .qlty/configs/
 
 # .gitattributes: line-ending normalization, the companion to .editorconfig's
 # `end_of_line = lf`. Installed ONLY when absent, unlike everything else here.

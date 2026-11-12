@@ -102,7 +102,7 @@ above, not with `--depth`. Two variables cover the exceptions:
 
 ```bash
 NORMAL_PREVIOUS_VERSION=4.0beta16 ./install.sh  # the headers are missing or wrong
-NORMAL_OVERWRITE=1 ./install.sh                 # overwrite every file, as install.sh used to
+NORMAL_OVERWRITE=1 ./install.sh                 # overwrite every file instead of merging
 ```
 
 ### Customising a workflow
@@ -239,28 +239,15 @@ dialect = postgres
 
 Any dialect supported by SQLFluff is valid (e.g. `postgres`, `sqlite`, `tsql`, `ansi`).
 
-### Migrating from .Normal 3.x
+### After installing
 
-```bash
-git clone https://github.com/eustasy/.normal.git &&
-cp .normal/install.sh install.sh &&
-chmod 755 install.sh &&
-./install.sh &&
-rm install.sh &&
-rm -Rf .normal;
-git add -A;
-git commit -m "Migrate to eustasy/.Normal 5.0 (Qlty)";
-git push
-```
-
-Then:
-
-1. Connect the repo on [qlty.sh](https://qlty.sh) (replaces Code Climate)
+1. Connect the repo on [qlty.sh](https://qlty.sh)
 2. Add `QLTY_COVERAGE_TOKEN` to repo secrets (Settings → Secrets → Actions)
 3. Remove the `if: false` guard from whichever test/typecheck workflows apply to the repo
 
-`install.sh` will automatically delete the old `.codeclimate.yml`, `.eslintrc.json`,
-`.stylelintrc.json`, `.mdlrc`, and related files.
+A repo coming from .Normal 3.x needs nothing extra: `install.sh` deletes the
+3.x-era config files (`.codeclimate.yml`, `.eslintrc.json`, `.stylelintrc.json`,
+`.mdlrc` and related) on its way through.
 
 ### Excluded Paths
 
