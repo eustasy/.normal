@@ -166,9 +166,9 @@ mkdir -p "$FAKE"
   git config user.name Test
   git add -A
   git commit -qm current
-  grep -rl 'eustasy/.Normal 5.0' configs install.sh |
+  grep -rl 'eustasy/.Normal 5.1' configs install.sh |
     while IFS= read -r f; do
-      sed 's/eustasy\/\.Normal 5\.0/eustasy\/.Normal 0.9test/' "$f" >"$f.tmp" && mv "$f.tmp" "$f"
+      sed 's/eustasy\/\.Normal 5\.1/eustasy\/.Normal 0.9test/' "$f" >"$f.tmp" && mv "$f.tmp" "$f"
     done
   sed "s/upload: \${{ matrix.php-version == '8.5' }}/upload: \${{ matrix.php-version == '8.6' }}/" \
     configs/.github/workflows/test-php.yml >t.tmp && mv t.tmp configs/.github/workflows/test-php.yml
@@ -249,7 +249,7 @@ assert_file_contains "$UP/.github/workflows/test-php.yml" "run: ./seed.sh" \
   "a project's own step is kept"
 assert_file_contains "$UP/.github/workflows/test-php.yml" "matrix.php-version == '8.5'" \
   "the same file still takes this version's changes"
-assert_file_contains "$UP/.github/workflows/test-php.yml" "# eustasy/.Normal 5.0" \
+assert_file_contains "$UP/.github/workflows/test-php.yml" "# eustasy/.Normal 5.1" \
   "the header moves to this version"
 assert_file_contains "$UP/.qlty/qlty.toml" 'plugins = ["phpstan"]' "qlty.toml keeps a project exclude"
 assert_file_contains "$UP/.github/dependabot.yml" "# A project note." "dependabot.yml keeps a project line"
